@@ -1,0 +1,12 @@
+/vendor/
+/uploads/
+/node_modules/
+
+*.log
+*.sql
+
+.env
+config.php
+
+.DS_Store
+Thumbs.db
