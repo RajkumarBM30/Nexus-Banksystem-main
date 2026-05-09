@@ -7,7 +7,7 @@
                 <p>Where money meets trust. Providing reliable banking services since 1995.</p>
                 <div class="contact-info"
                     style="color: var(--light-gray); font-size: 16px; margin-top: 20px; white-space: nowrap;">
-                    <p>📧 Email: Nexus-Banksystem@gmail.com</p>
+                    <p>📧 Email: rajkumar.bm0207@gmail.com</p>
                     <p>📞 Phone: +91 6363-159-262</p>
                 </div>
             </div>
