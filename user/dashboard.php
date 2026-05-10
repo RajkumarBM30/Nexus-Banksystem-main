@@ -613,7 +613,7 @@ $profilePic = $user['profile_picture'] ? '../uploads/' . $user['profile_picture'
                     },
                     yaxis: {
                         title: {
-                            text: 'Balance (₱)',
+                            text: 'Balance (₹)',
                             style: {
                                 fontSize: '14px'
                             }

@@ -66,7 +66,7 @@ if (isset($_GET['id']) && isset($_GET['action'])) {
                 $accountId = $account['account_id'];
 
                 $stmt = $pdo->prepare('INSERT INTO transactions (account_id, type, amount, description, created_at) VALUES (?, \'approved_loan\', ?, ?, NOW())');
-                $stmt->execute([$accountId, $amount, 'Loan approved: ₱' . number_format($amount, 2)]);
+                $stmt->execute([$accountId, $amount, 'Loan approved: ₹' . number_format($amount, 2)]);
             }
 
             // Fetch user's email for notification
@@ -78,8 +78,8 @@ if (isset($_GET['id']) && isset($_GET['action'])) {
                 // Prepare the email content
                 if ($action == 'approve') {
                     $subject = 'Your Loan Request Has Been Approved';
-                    $messageHtml = "<p>Dear User,</p><p>Your loan request has been <strong>approved</strong>.</p><p>Amount: ₱".number_format($amount, 2)."<br>Total Due: ₱".number_format($totalDue, 2)."</p><p>Thank you for choosing us.</p>";
-                    $messagePlain = "Dear User, Your loan request has been approved.\nAmount: ₱".number_format($amount, 2)."\nTotal Due: ₱".number_format($totalDue, 2)."\nThank you for choosing us.";
+                    $messageHtml = "<p>Dear User,</p><p>Your loan request has been <strong>approved</strong>.</p><p>Amount: ₹".number_format($amount, 2)."<br>Total Due: ₹".number_format($totalDue, 2)."</p><p>Thank you for choosing us.</p>";
+                    $messagePlain = "Dear User, Your loan request has been approved.\nAmount: ₹".number_format($amount, 2)."\nTotal Due: ₹".number_format($totalDue, 2)."\nThank you for choosing us.";
                 } else {
                     $subject = 'Your Loan Request Has Been Rejected';
                     $messageHtml = "<p>Dear User,</p><p>Your loan request has been <strong>rejected</strong>.</p><p>We regret to inform you that we are unable to process your loan request at this time.</p><p>Thank you.</p>";
@@ -179,154 +179,186 @@ foreach ($approvedLoans as $loan) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Manage Loans - Nexus Bank Admin</title>
     <link rel="stylesheet" href="../assets/css/admin-main.css">
     <link rel="stylesheet" href="../assets/css/admin-loans.css">
 
-       <script src="../assets/js/sidebar.js"></script>
-             
+    <script src="../assets/js/sidebar.js"></script>
+
 </head>
+
 <body>
 
- <div class="wrapper">
-            <aside class="sidebar">
-                        
-                            <div class="Logos-cont">
-                                <img src="../assets/images/Logo-color.png" alt="SecureBank Logo" class="logo-container">
-                            </div>
+    <div class="wrapper">
+        <aside class="sidebar">
 
-                            <nav class="dashboard-nav">
-                                <a href="dashboard.php" class="active btn ">Dashboard</a>
-                                <a href="manage-users.php" class="btn ">Manage Users</a>
-                                <a href="manage-loans.php" class="btn dash-text">Manage Loans</a>
-                                <a href="manage-investments.php" class="btn">Manage Investments</a>
-                                <a href="track-investments.php" class="btn">Users Investments</a>
-                                <a href="role.php" class="btn">Roles</a>
-                                <a href="recent_transactions.php" class="btn">Transactions</a>
-                                <a href="loan-history.php" class="btn">Loan History</a>
-                                <a href="login-records.php" class="btn">Login Records</a>
-                                <a href="manage-messages.php" class="btn">Contact Messages</a>
-                            </nav>
+            <div class="Logos-cont">
+                <img src="../assets/images/Logo-color.png" alt="SecureBank Logo" class="logo-container">
+            </div>
 
-                             <div class="logout-cont">
-                                <a href="../logout.php" class="logout">Logout</a>
-                            </div>
-                </aside>
-                            
-                    <main class="container">
-                    <header>
-                    <h1>Loan Management</h1>
-                    <button class="hamburger">&#9776;</button> <!-- Hamburger icon -->
-                    </header>
+            <nav class="dashboard-nav">
+                <a href="dashboard.php" class="active btn ">Dashboard</a>
+                <a href="manage-users.php" class="btn ">Manage Users</a>
+                <a href="manage-loans.php" class="btn dash-text">Manage Loans</a>
+                <a href="manage-investments.php" class="btn">Manage Investments</a>
+                <a href="track-investments.php" class="btn">Users Investments</a>
+                <a href="role.php" class="btn">Roles</a>
+                <a href="recent_transactions.php" class="btn">Transactions</a>
+                <a href="loan-history.php" class="btn">Loan History</a>
+                <a href="login-records.php" class="btn">Login Records</a>
+                <a href="manage-messages.php" class="btn">Contact Messages</a>
+            </nav>
 
-                    <div class="content">
+            <div class="logout-cont">
+                <a href="../logout.php" class="logout">Logout</a>
+            </div>
+        </aside>
 
-                    <h2>🕒 Pending Loan Requests (Latest 10)</h2>
+        <main class="container">
+            <header>
+                <h1>Loan Management</h1>
+                <button class="hamburger">&#9776;</button> <!-- Hamburger icon -->
+            </header>
 
-                    <?php if (empty($pendingLoans)): ?>
-                        <p>No pending loan applications at the moment.</p>
-                    <?php else: ?>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Loan ID</th>
-                                    <th>User</th>
-                                    <th>Email</th>
-                                    <th>Amount</th>
-                                    <th>Interest</th>
-                                    <th>Term</th>
-                                    <th>Purpose</th>
-                                    <th>Requested</th>
-                                    <th>Verification</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($pendingLoans as $loan): ?>
-                                    <tr>
-                                        <td data-label="Loan ID"><?= $loan['loan_id'] ?></td>
-                                        <td data-label="User"><?= htmlspecialchars($loan['full_name']) ?></td>
-                                        <td data-label="Email"><?= htmlspecialchars($loan['email']) ?></td>
-                                        <td data-label="Amount">₱<?= number_format($loan['amount'], 2) ?></td>
-                                        <td data-label="Interest"><?= $loan['interest_rate'] ?>%</td>
-                                        <td data-label="Term"><?= $loan['term_months'] ?> months</td>
-                                        <td data-label="Purpose"><?= htmlspecialchars($loan['purpose']) ?></td>
-                                        <td data-label="Requested"><?= date('M d, Y', strtotime($loan['created_at'])) ?></td>
-                                        <td data-label="Verification">
-                                            <?php if ($loan['id_selfie_file_path'] && $loan['id_document_file_path']): ?>
-                                                <a href="view-loan-verification.php?loan_id=<?= $loan['loan_id'] ?>" class="btn3 btn-info" style="color: #000;">View Verification</a>
-                                            <?php else: ?>
-                                                No files uploaded
-                                            <?php endif; ?>
-                                        </td>
-                                        <td data-label="Actions">
-                                            <a href="manage-loans.php?id=<?= $loan['loan_id'] ?>&action=approve" class="btn3 btn-approve" onclick="return confirm('Approve this loan?')">Approve</a>
-                                            <a href="manage-loans.php?id=<?= $loan['loan_id'] ?>&action=reject" class="btn3 btn-reject" onclick="return confirm('Reject this loan?')">Reject</a>
-                                            <a href="manage-loans.php?id=<?= $loan['loan_id'] ?>&action=delete" class="btn3 btn-delete" onclick="return confirm('Are you sure you want to delete this loan?')">Delete</a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+            <div class="content">
+
+                <h2>🕒 Pending Loan Requests (Latest 10)</h2>
+
+                <?php if (empty($pendingLoans)): ?>
+                <p>No pending loan applications at the moment.</p>
+                <?php else: ?>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Loan ID</th>
+                            <th>User</th>
+                            <th>Email</th>
+                            <th>Amount</th>
+                            <th>Interest</th>
+                            <th>Term</th>
+                            <th>Purpose</th>
+                            <th>Requested</th>
+                            <th>Verification</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($pendingLoans as $loan): ?>
+                        <tr>
+                            <td data-label="Loan ID"><?= $loan['loan_id'] ?></td>
+                            <td data-label="User"><?= htmlspecialchars($loan['full_name']) ?></td>
+                            <td data-label="Email"><?= htmlspecialchars($loan['email']) ?></td>
+                            <td data-label="Amount">₹<?= number_format($loan['amount'], 2) ?></td>
+                            <td data-label="Interest"><?= $loan['interest_rate'] ?>%</td>
+                            <td data-label="Term"><?= $loan['term_months'] ?> months</td>
+                            <td data-label="Purpose"><?= htmlspecialchars($loan['purpose']) ?></td>
+                            <td data-label="Requested"><?= date('M d, Y', strtotime($loan['created_at'])) ?></td>
+                            <td data-label="Verification">
+                                <?php if ($loan['id_selfie_file_path'] && $loan['id_document_file_path']): ?>
+                                <a href="view-loan-verification.php?loan_id=<?= $loan['loan_id'] ?>"
+                                    class="btn3 btn-info" style="color: #000;">View Verification</a>
+                                <?php else: ?>
+                                No files uploaded
+                                <?php endif; ?>
+                            </td>
+                            <td data-label="Actions">
+                                <a href="manage-loans.php?id=<?= $loan['loan_id'] ?>&action=approve"
+                                    class="btn3 btn-approve" onclick="return confirm('Approve this loan?')">Approve</a>
+                                <a href="manage-loans.php?id=<?= $loan['loan_id'] ?>&action=reject"
+                                    class="btn3 btn-reject" onclick="return confirm('Reject this loan?')">Reject</a>
+                                <a href="manage-loans.php?id=<?= $loan['loan_id'] ?>&action=delete"
+                                    class="btn3 btn-delete"
+                                    onclick="return confirm('Are you sure you want to delete this loan?')">Delete</a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <?php endif; ?>
+
+                <!-- Pagination Controls for Pending Loans -->
+                <?php if ($totalPendingPages > 1): ?>
+                <style>
+                .pagination {
+                    text-align: center;
+                    margin: 20px 0;
+                }
+
+                .pagination a {
+                    display: inline-block;
+                    margin: 0 4px;
+                    padding: 6px 12px;
+                    color: #007bff;
+                    background: #fff;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    text-decoration: none;
+                    transition: background 0.2s, color 0.2s;
+                }
+
+                .pagination a.btn-primary,
+                .pagination a.active {
+                    background: #007bff;
+                    color: #fff;
+                    border-color: #007bff;
+                    pointer-events: none;
+                }
+
+                .pagination a:hover:not(.btn-primary):not(.active) {
+                    background: #f0f0f0;
+                }
+                </style>
+                <div class="pagination">
+                    <?php if ($pendingPage > 1): ?>
+                    <a href="?pending_page=<?= $pendingPage - 1 ?>">&laquo; Prev</a>
                     <?php endif; ?>
-
-                    <!-- Pagination Controls for Pending Loans -->
-                    <?php if ($totalPendingPages > 1): ?>
-                    <style>
-                    .pagination { text-align: center; margin: 20px 0; }
-                    .pagination a { display: inline-block; margin: 0 4px; padding: 6px 12px; color: #007bff; background: #fff; border: 1px solid #ddd; border-radius: 4px; text-decoration: none; transition: background 0.2s, color 0.2s; }
-                    .pagination a.btn-primary, .pagination a.active { background: #007bff; color: #fff; border-color: #007bff; pointer-events: none; }
-                    .pagination a:hover:not(.btn-primary):not(.active) { background: #f0f0f0; }
-                    </style>
-                    <div class="pagination">
-                        <?php if ($pendingPage > 1): ?>
-                            <a href="?pending_page=<?= $pendingPage - 1 ?>">&laquo; Prev</a>
-                        <?php endif; ?>
-                        <?php for ($i = 1; $i <= $totalPendingPages; $i++): ?>
-                            <a href="?pending_page=<?= $i ?>" class="<?= $i == $pendingPage ? 'btn-primary active' : '' ?>"><?= $i ?></a>
-                        <?php endfor; ?>
-                        <?php if ($pendingPage < $totalPendingPages): ?>
-                            <a href="?pending_page=<?= $pendingPage + 1 ?>">Next &raquo;</a>
-                        <?php endif; ?>
-                    </div>
+                    <?php for ($i = 1; $i <= $totalPendingPages; $i++): ?>
+                    <a href="?pending_page=<?= $i ?>"
+                        class="<?= $i == $pendingPage ? 'btn-primary active' : '' ?>"><?= $i ?></a>
+                    <?php endfor; ?>
+                    <?php if ($pendingPage < $totalPendingPages): ?>
+                    <a href="?pending_page=<?= $pendingPage + 1 ?>">Next &raquo;</a>
                     <?php endif; ?>
+                </div>
+                <?php endif; ?>
 
-                    <hr>
+                <hr>
 
-                    <h2>✅ Active Loans</h2>
+                <h2>✅ Active Loans</h2>
 
-                    <?php if (empty($approvedLoans)): ?>
-                        <p>No active loans at the moment.</p>
-                    <?php else: ?>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Loan ID</th>
-                                    <th>User</th>
-                                    <th>Email</th>
-                                    <th>Amount</th>
-                                    <th>Interest</th>
-                                    <th>Term</th>
-                                    <th>Due Date</th>
-                                    <th>Total Due</th>
-                                    <th>Purpose</th>
-                                    <th>Approved On</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($approvedLoans as $loan): ?>
-                                    <tr>
-                                        <td data-label="Loan ID"><?= $loan['loan_id'] ?></td>
-                                        <td data-label="User"><?= htmlspecialchars($loan['full_name']) ?></td>
-                                        <td data-label="Email"><?= htmlspecialchars($loan['email']) ?></td>
-                                        <td data-label="Amount">₱<?= number_format($loan['amount'], 2) ?></td>
-                                        <td data-label="Interest"><?= $loan['interest_rate'] ?>%</td>
-                                        <td data-label="Term"><?= $loan['term_months'] ?> months</td>
-                                        <td data-label="Due Date">
-                                            <?php 
+                <?php if (empty($approvedLoans)): ?>
+                <p>No active loans at the moment.</p>
+                <?php else: ?>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Loan ID</th>
+                            <th>User</th>
+                            <th>Email</th>
+                            <th>Amount</th>
+                            <th>Interest</th>
+                            <th>Term</th>
+                            <th>Due Date</th>
+                            <th>Total Due</th>
+                            <th>Purpose</th>
+                            <th>Approved On</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($approvedLoans as $loan): ?>
+                        <tr>
+                            <td data-label="Loan ID"><?= $loan['loan_id'] ?></td>
+                            <td data-label="User"><?= htmlspecialchars($loan['full_name']) ?></td>
+                            <td data-label="Email"><?= htmlspecialchars($loan['email']) ?></td>
+                            <td data-label="Amount">₹<?= number_format($loan['amount'], 2) ?></td>
+                            <td data-label="Interest"><?= $loan['interest_rate'] ?>%</td>
+                            <td data-label="Term"><?= $loan['term_months'] ?> months</td>
+                            <td data-label="Due Date">
+                                <?php 
                                             if ($loan['approved_at'] !== null) {
                                                 $dueDate = new DateTime($loan['approved_at']);
                                                 $dueDate->modify('+1 year');
@@ -335,20 +367,21 @@ foreach ($approvedLoans as $loan) {
                                                 echo 'N/A';
                                             }
                                             ?>
-                                        </td>
-                                        <td data-label="Total Due">₱<?= number_format($loan['total_due'] + ($loan['penalty_amount'] ?? 0), 2) ?></td>
-                                        <td data-label="Purpose"><?= htmlspecialchars($loan['purpose']) ?></td>
-                                        <td data-label="Approved On">
-                                            <?php 
+                            </td>
+                            <td data-label="Total Due">
+                                ₹<?= number_format($loan['total_due'] + ($loan['penalty_amount'] ?? 0), 2) ?></td>
+                            <td data-label="Purpose"><?= htmlspecialchars($loan['purpose']) ?></td>
+                            <td data-label="Approved On">
+                                <?php 
                                             if ($loan['approved_at'] !== null) {
                                                 echo date('M d, Y', strtotime($loan['approved_at']));
                                             } else {
                                                 echo 'Not approved yet';
                                             }
                                             ?>
-                                        </td>
-                                        <td data-label="Status">
-                                            <?php 
+                            </td>
+                            <td data-label="Status">
+                                <?php 
                                             if ($loan['approved_at'] !== null) {
                                                 $currentDate = new DateTime();
                                                 $approvedDate = new DateTime($loan['approved_at']);
@@ -364,30 +397,32 @@ foreach ($approvedLoans as $loan) {
                                                 echo '<span class="status-' . $loan['status'] . '">' . ucfirst($loan['status']) . '</span>';
                                             }
                                             ?>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <?php endif; ?>
 
-                    <!-- Pagination Controls for Approved Loans -->
-                    <?php if ($totalApprovedPages > 1): ?>
-                    <div class="pagination">
-                        <?php if ($approvedPage > 1): ?>
-                            <a href="?approved_page=<?= $approvedPage - 1 ?>">&laquo; Prev</a>
-                        <?php endif; ?>
-                        <?php for ($i = 1; $i <= $totalApprovedPages; $i++): ?>
-                            <a href="?approved_page=<?= $i ?>" class="<?= $i == $approvedPage ? 'btn-primary active' : '' ?>"><?= $i ?></a>
-                        <?php endfor; ?>
-                        <?php if ($approvedPage < $totalApprovedPages): ?>
-                            <a href="?approved_page=<?= $approvedPage + 1 ?>">Next &raquo;</a>
-                        <?php endif; ?>
-                    </div>
+                <!-- Pagination Controls for Approved Loans -->
+                <?php if ($totalApprovedPages > 1): ?>
+                <div class="pagination">
+                    <?php if ($approvedPage > 1): ?>
+                    <a href="?approved_page=<?= $approvedPage - 1 ?>">&laquo; Prev</a>
                     <?php endif; ?>
+                    <?php for ($i = 1; $i <= $totalApprovedPages; $i++): ?>
+                    <a href="?approved_page=<?= $i ?>"
+                        class="<?= $i == $approvedPage ? 'btn-primary active' : '' ?>"><?= $i ?></a>
+                    <?php endfor; ?>
+                    <?php if ($approvedPage < $totalApprovedPages): ?>
+                    <a href="?approved_page=<?= $approvedPage + 1 ?>">Next &raquo;</a>
+                    <?php endif; ?>
+                </div>
+                <?php endif; ?>
 
-                    </div>
+            </div>
         </main>
-</div>
+    </div>
 </body>
+
 </html>

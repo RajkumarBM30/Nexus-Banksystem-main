@@ -178,146 +178,184 @@ $users = $users->fetchAll();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Nexus Bank - Manage Users</title>
     <link rel="stylesheet" href="../assets/css/admin-main.css">
     <link rel="stylesheet" href="../assets/css/admin-users.css">
 
-       <script src="../assets/js/sidebar.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
 </head>
+
 <body>
     <div class="wrapper">
-            <aside class="sidebar">
-                        
-                            <div class="Logos-cont">
-                                <img src="../assets/images/Logo-color.png" alt="SecureBank Logo" class="logo-container">
-                            </div>
+        <aside class="sidebar">
 
-                            <nav class="dashboard-nav">
-                                <a href="dashboard.php" class="active btn ">Dashboard</a>
-                                <a href="manage-users.php" class="btn dash-text">Manage Users</a>
-                                <a href="manage-loans.php" class="btn">Manage Loans</a>
-                                <a href="manage-investments.php" class="btn">Manage Investments</a>
-                                <a href="track-investments.php" class="btn">Users Investments</a>
-                                <a href="role.php" class="btn">Roles</a>
-                                <a href="recent_transactions.php" class="btn">Transactions</a>
-                                <a href="loan-history.php" class="btn">Loan History</a>
-                                <a href="login-records.php" class="btn">Login Records</a>
-                                <a href="manage-messages.php" class="btn">Contact Messages</a>
-                            </nav>
+            <div class="Logos-cont">
+                <img src="../assets/images/Logo-color.png" alt="SecureBank Logo" class="logo-container">
+            </div>
 
-                             <div class="logout-cont">
-                                <a href="../logout.php" class="logout">Logout</a>
-                            </div>
-                </aside>
+            <nav class="dashboard-nav">
+                <a href="dashboard.php" class="active btn ">Dashboard</a>
+                <a href="manage-users.php" class="btn dash-text">Manage Users</a>
+                <a href="manage-loans.php" class="btn">Manage Loans</a>
+                <a href="manage-investments.php" class="btn">Manage Investments</a>
+                <a href="track-investments.php" class="btn">Users Investments</a>
+                <a href="role.php" class="btn">Roles</a>
+                <a href="recent_transactions.php" class="btn">Transactions</a>
+                <a href="loan-history.php" class="btn">Loan History</a>
+                <a href="login-records.php" class="btn">Login Records</a>
+                <a href="manage-messages.php" class="btn">Contact Messages</a>
+            </nav>
+
+            <div class="logout-cont">
+                <a href="../logout.php" class="logout">Logout</a>
+            </div>
+        </aside>
 
 
-<main class="container">
-    <header>
-        <h1>Manage Users</h1>
-        <a href="../logout.php" class="logout">Logout</a>
-        <button class="hamburger">&#9776;</button> <!-- Hamburger icon -->
-    </header>
+        <main class="container">
+            <header>
+                <h1>Manage Users</h1>
+                <a href="../logout.php" class="logout">Logout</a>
+                <button class="hamburger">&#9776;</button> <!-- Hamburger icon -->
+            </header>
 
-    <div class="content">
-        <?php if (isset($_SESSION['success'])): ?>
-            <div class="alert alert-success"><?= $_SESSION['success'] ?></div>
-            <?php unset($_SESSION['success']); ?>
-        <?php endif; ?>
+            <div class="content">
+                <?php if (isset($_SESSION['success'])): ?>
+                <div class="alert alert-success"><?= $_SESSION['success'] ?></div>
+                <?php unset($_SESSION['success']); ?>
+                <?php endif; ?>
 
-        <?php if (isset($_SESSION['error'])): ?>
-            <div class="alert alert-danger"><?= $_SESSION['error'] ?></div>
-            <?php unset($_SESSION['error']); ?>
-        <?php endif; ?>
+                <?php if (isset($_SESSION['error'])): ?>
+                <div class="alert alert-danger"><?= $_SESSION['error'] ?></div>
+                <?php unset($_SESSION['error']); ?>
+                <?php endif; ?>
 
-        <h2>All Users</h2>
+                <h2>All Users</h2>
 
-        <div class="table-cont">
-        <?php if (empty($users)): ?>
-            <p>No users found.</p>
-        <?php else: ?>
-            <table class="users-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Account</th>
-                        <th>Balance</th>
-                        <th>Status</th>
-                        <th>ID Verification</th>
-                        <th>Active</th>
-                        <th>Joined On</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($users as $user): ?>
-                        <tr>
-                            <td data-label="Name"><?= htmlspecialchars($user['full_name']) ?></td>
-                            <td data-label="Email"><?= htmlspecialchars($user['email']) ?></td>
-                            <td data-label="Account"><?= $user['account_number'] ?: 'N/A' ?></td>
-                            <td data-label="Balance">₱<?= number_format($user['balance'] ?? 0, 2) ?></td>
-                            <td data-label="Status"><?= $user['status'] === 'approved' ? '✅ Approved' : '⏳ Pending' ?></td>
-                            <td data-label="ID Verification">
-                                <?php if ($user['id_file_path']): ?>
+                <div class="table-cont">
+                    <?php if (empty($users)): ?>
+                    <p>No users found.</p>
+                    <?php else: ?>
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Account</th>
+                                <th>Balance</th>
+                                <th>Status</th>
+                                <th>ID Verification</th>
+                                <th>Active</th>
+                                <th>Joined On</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($users as $user): ?>
+                            <tr>
+                                <td data-label="Name"><?= htmlspecialchars($user['full_name']) ?></td>
+                                <td data-label="Email"><?= htmlspecialchars($user['email']) ?></td>
+                                <td data-label="Account"><?= $user['account_number'] ?: 'N/A' ?></td>
+                                <td data-label="Balance">₹<?= number_format($user['balance'] ?? 0, 2) ?></td>
+                                <td data-label="Status">
+                                    <?= $user['status'] === 'approved' ? '✅ Approved' : '⏳ Pending' ?></td>
+                                <td data-label="ID Verification">
+                                    <?php if ($user['id_file_path']): ?>
                                     <span class="id-status <?= $user['verification_status'] ?>">
                                         <?= ucfirst($user['verification_status'] ?? 'pending') ?>
                                     </span>
-                                    <a href="view-id.php?user_id=<?= $user['user_id'] ?>" class="btn btn-sm btn-info">View ID</a>
-                                <?php else: ?>
-                                    <span class="id-status pending">No ID Uploaded</span>
-                                <?php endif; ?>
-                            </td>
-                            <td data-label="Active"><?= $user['is_active'] ? '🟢 Active' : '🔴 Inactive' ?></td>
-                            <td data-label="Joined On"><?= date('M j, Y', strtotime($user['created_at'])) ?></td>
-                            <td data-label="Actions">
-                                <?php if ($user['status'] !== 'approved'): ?>
-                                    <a href="manage-users.php?accept=<?= $user['user_id'] ?>" class="btn btn-sm btn-success">Accept</a>
-                                    <a href="manage-users.php?reject=<?= $user['user_id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Reject and delete this user?')">Reject</a>
-                                <?php endif; ?>
-
-                                <?php if ($user['status'] === 'approved'): ?>
-                                    <?php if ($user['is_active']): ?>
-                                        <a href="manage-users.php?toggle_active=<?= $user['user_id'] ?>&status=1" class="btn btn-sm btn-warning" onclick="return confirm('Deactivate this user?')">Deactivate</a>
+                                    <a href="view-id.php?user_id=<?= $user['user_id'] ?>"
+                                        class="btn btn-sm btn-info">View ID</a>
                                     <?php else: ?>
-                                        <a href="manage-users.php?toggle_active=<?= $user['user_id'] ?>&status=0" class="btn btn-sm btn-success" onclick="return confirm('Activate this user?')">Activate</a>
+                                    <span class="id-status pending">No ID Uploaded</span>
                                     <?php endif; ?>
-                                    
-                                    <?php if ($user['balance'] == 0): ?>
-                                        <a href="manage-users.php?delete=<?= $user['user_id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+                                </td>
+                                <td data-label="Active"><?= $user['is_active'] ? '🟢 Active' : '🔴 Inactive' ?></td>
+                                <td data-label="Joined On"><?= date('M j, Y', strtotime($user['created_at'])) ?></td>
+                                <td data-label="Actions">
+                                    <?php if ($user['status'] !== 'approved'): ?>
+                                    <a href="manage-users.php?accept=<?= $user['user_id'] ?>"
+                                        class="btn btn-sm btn-success">Accept</a>
+                                    <a href="manage-users.php?reject=<?= $user['user_id'] ?>"
+                                        class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Reject and delete this user?')">Reject</a>
                                     <?php endif; ?>
-                                <?php endif; ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php endif; ?>
-        </div>
-        <!-- Pagination Controls -->
-        <?php if ($totalPages > 1): ?>
-        <style>
-        .pagination { text-align: center; margin: 20px 0; }
-        .pagination a { display: inline-block; margin: 0 4px; padding: 6px 12px; color: #007bff; background: #fff; border: 1px solid #ddd; border-radius: 4px; text-decoration: none; transition: background 0.2s, color 0.2s; }
-        .pagination a.btn-primary, .pagination a.active { background: #007bff; color: #fff; border-color: #007bff; pointer-events: none; }
-        .pagination a:hover:not(.btn-primary):not(.active) { background: #f0f0f0; }
-        </style>
-        <div class="pagination">
-            <?php if ($page > 1): ?>
-                <a href="?page=<?= $page - 1 ?>">&laquo; Prev</a>
-            <?php endif; ?>
-            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                <a href="?page=<?= $i ?>" class="<?= $i == $page ? 'btn-primary active' : '' ?>"><?= $i ?></a>
-            <?php endfor; ?>
-            <?php if ($page < $totalPages): ?>
-                <a href="?page=<?= $page + 1 ?>">Next &raquo;</a>
-            <?php endif; ?>
-        </div>
-        <?php endif; ?>
-    </div>
-</main>
 
-</div>
+                                    <?php if ($user['status'] === 'approved'): ?>
+                                    <?php if ($user['is_active']): ?>
+                                    <a href="manage-users.php?toggle_active=<?= $user['user_id'] ?>&status=1"
+                                        class="btn btn-sm btn-warning"
+                                        onclick="return confirm('Deactivate this user?')">Deactivate</a>
+                                    <?php else: ?>
+                                    <a href="manage-users.php?toggle_active=<?= $user['user_id'] ?>&status=0"
+                                        class="btn btn-sm btn-success"
+                                        onclick="return confirm('Activate this user?')">Activate</a>
+                                    <?php endif; ?>
+
+                                    <?php if ($user['balance'] == 0): ?>
+                                    <a href="manage-users.php?delete=<?= $user['user_id'] ?>"
+                                        class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+                                    <?php endif; ?>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <?php endif; ?>
+                </div>
+                <!-- Pagination Controls -->
+                <?php if ($totalPages > 1): ?>
+                <style>
+                .pagination {
+                    text-align: center;
+                    margin: 20px 0;
+                }
+
+                .pagination a {
+                    display: inline-block;
+                    margin: 0 4px;
+                    padding: 6px 12px;
+                    color: #007bff;
+                    background: #fff;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    text-decoration: none;
+                    transition: background 0.2s, color 0.2s;
+                }
+
+                .pagination a.btn-primary,
+                .pagination a.active {
+                    background: #007bff;
+                    color: #fff;
+                    border-color: #007bff;
+                    pointer-events: none;
+                }
+
+                .pagination a:hover:not(.btn-primary):not(.active) {
+                    background: #f0f0f0;
+                }
+                </style>
+                <div class="pagination">
+                    <?php if ($page > 1): ?>
+                    <a href="?page=<?= $page - 1 ?>">&laquo; Prev</a>
+                    <?php endif; ?>
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                    <a href="?page=<?= $i ?>" class="<?= $i == $page ? 'btn-primary active' : '' ?>"><?= $i ?></a>
+                    <?php endfor; ?>
+                    <?php if ($page < $totalPages): ?>
+                    <a href="?page=<?= $page + 1 ?>">Next &raquo;</a>
+                    <?php endif; ?>
+                </div>
+                <?php endif; ?>
+            </div>
+        </main>
+
+    </div>
 </body>
+
 </html>

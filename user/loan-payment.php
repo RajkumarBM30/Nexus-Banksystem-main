@@ -192,6 +192,7 @@ $profilePic = $user['profile_picture'] ? '../uploads/' . $user['profile_picture'
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>SecureBank - Loan Payment</title>
@@ -202,178 +203,147 @@ $profilePic = $user['profile_picture'] ? '../uploads/' . $user['profile_picture'
     <script src="../assets/js/navhover.js"></script>
     <script src="../assets/js/sidebar.js"></script>
     <script>
-        <?php if (isset($_SESSION['success_message'])): ?>
-        window.onload = function() {
-            alert("<?= $_SESSION['success_message'] ?>");
-            <?php unset($_SESSION['success_message']); ?>
-        };
-        <?php endif; ?>
+    <?php if (isset($_SESSION['success_message'])): ?>
+    window.onload = function() {
+        alert("<?= $_SESSION['success_message'] ?>");
+        <?php unset($_SESSION['success_message']); ?>
+    };
+    <?php endif; ?>
     </script>
 </head>
+
 <body>
-<div class="wrapper">
-                <aside class="sidebar"> 
+    <div class="wrapper">
+        <aside class="sidebar">
 
-                        <div class="Logos-cont">
-                            <img src="../assets/images/Logo-color.png" alt="SecureBank Logo" class="logo-container">
-                        </div>
- <hr>
-                        <div class="profile-container">
-                            <img src="<?= $profilePic ?>" alt="Profile Picture" class="img-fluid">
-                            <h5><?= htmlspecialchars($user['full_name']) ?></h5>
-                            <p><?= htmlspecialchars($user['account_number']) ?></p>
-                        </div>
-                         <hr>
-                                <nav>
-                            <a href="dashboard.php" class="btn">
-                                <img 
-                                src="../assets/images/inactive-dashboard.png" 
-                                alt="dashboard-logo" 
-                                class="nav-icon"
-                                data-default="../assets/images/inactive-dashboard.png"
-                                data-hover="../assets/images/hover-dashboard.png"
-                                > 
-                                Dashboard
-                            </a>
+            <div class="Logos-cont">
+                <img src="../assets/images/Logo-color.png" alt="SecureBank Logo" class="logo-container">
+            </div>
+            <hr>
+            <div class="profile-container">
+                <img src="<?= $profilePic ?>" alt="Profile Picture" class="img-fluid">
+                <h5><?= htmlspecialchars($user['full_name']) ?></h5>
+                <p><?= htmlspecialchars($user['account_number']) ?></p>
+            </div>
+            <hr>
+            <nav>
+                <a href="dashboard.php" class="btn">
+                    <img src="../assets/images/inactive-dashboard.png" alt="dashboard-logo" class="nav-icon"
+                        data-default="../assets/images/inactive-dashboard.png"
+                        data-hover="../assets/images/hover-dashboard.png">
+                    Dashboard
+                </a>
 
-                            <a href="deposit.php" class="btn">
-                                <img 
-                                src="../assets/images/inactive-deposit.png" 
-                                alt="deposit-logo" 
-                                class="nav-icon"
-                                data-default="../assets/images/inactive-deposit.png"
-                                data-hover="../assets/images/hover-deposit.png"
-                                > 
-                                Deposit
-                            </a>
+                <a href="deposit.php" class="btn">
+                    <img src="../assets/images/inactive-deposit.png" alt="deposit-logo" class="nav-icon"
+                        data-default="../assets/images/inactive-deposit.png"
+                        data-hover="../assets/images/hover-deposit.png">
+                    Deposit
+                </a>
 
-                            <a href="withdraw.php" class="btn">
-                                <img 
-                                src="../assets/images/inactive-withdraw.png" 
-                                alt="withdraw-logo" 
-                                class="nav-icon"
-                                data-default="../assets/images/inactive-withdraw.png"
-                                data-hover="../assets/images/hover-withdraw.png"
-                                > 
-                                Withdraw
-                            </a>
+                <a href="withdraw.php" class="btn">
+                    <img src="../assets/images/inactive-withdraw.png" alt="withdraw-logo" class="nav-icon"
+                        data-default="../assets/images/inactive-withdraw.png"
+                        data-hover="../assets/images/hover-withdraw.png">
+                    Withdraw
+                </a>
 
-                            <a href="transfer.php" class="btn">
-                                <img 
-                                src="../assets/images/inactive-transfer.png" 
-                                alt="transfer-logo" 
-                                class="nav-icon"
-                                data-default="../assets/images/inactive-transfer.png"
-                                data-hover="../assets/images/hover-transfer.png"
-                                > 
-                                Transfer
-                            </a>
+                <a href="transfer.php" class="btn">
+                    <img src="../assets/images/inactive-transfer.png" alt="transfer-logo" class="nav-icon"
+                        data-default="../assets/images/inactive-transfer.png"
+                        data-hover="../assets/images/hover-transfer.png">
+                    Transfer
+                </a>
 
-                            <a href="transactions.php" class="btn">
-                                <img 
-                                src="../assets/images/inactive-transaction.png" 
-                                alt="transactions-logo" 
-                                class="nav-icon"
-                                data-default="../assets/images/inactive-transaction.png"
-                                data-hover="../assets/images/hover-transaction.png"
-                                > 
-                                Transactions
-                            </a>
+                <a href="transactions.php" class="btn">
+                    <img src="../assets/images/inactive-transaction.png" alt="transactions-logo" class="nav-icon"
+                        data-default="../assets/images/inactive-transaction.png"
+                        data-hover="../assets/images/hover-transaction.png">
+                    Transactions
+                </a>
 
-                            <a href="investment.php" class="btn">
-                                <img 
-                                src="../assets/images/inactive-investment.png" 
-                                alt="investment-logo" 
-                                class="nav-icon"
-                                data-default="../assets/images/inactive-investment.png"
-                                data-hover="../assets/images/hover-investment.png"
-                                > 
-                                Investment
-                            </a>
+                <a href="investment.php" class="btn">
+                    <img src="../assets/images/inactive-investment.png" alt="investment-logo" class="nav-icon"
+                        data-default="../assets/images/inactive-investment.png"
+                        data-hover="../assets/images/hover-investment.png">
+                    Investment
+                </a>
 
-                            <a href="loan.php" class="btn dash-text">
-                                <img 
-                                    src="../assets/images/hover-loans.png" 
-                                    alt="loans-logo" 
-                                    class="nav-icon"
-                                    data-default="../assets/images/hover-loans.png"
-                                    data-hover="../assets/images/hover-loans.png"> 
-                                Loans
-                            </a>
+                <a href="loan.php" class="btn dash-text">
+                    <img src="../assets/images/hover-loans.png" alt="loans-logo" class="nav-icon"
+                        data-default="../assets/images/hover-loans.png" data-hover="../assets/images/hover-loans.png">
+                    Loans
+                </a>
 
-                            <a href="profile.php" class="btn">
-                                <img 
-                                src="../assets/images/inactive-profile.png" 
-                                alt="loans-logo" 
-                                class="nav-icon"
-                                data-default="../assets/images/inactive-profile.png"
-                                data-hover="../assets/images/inactive-profile"
-                                > 
-                                Settings
-                            </a>    
+                <a href="profile.php" class="btn">
+                    <img src="../assets/images/inactive-profile.png" alt="loans-logo" class="nav-icon"
+                        data-default="../assets/images/inactive-profile.png"
+                        data-hover="../assets/images/inactive-profile">
+                    Settings
+                </a>
 
-                        </nav>       
- <hr>
-                        <div class="logout-cont">
-                                <a href="../logout.php" class="logout">Logout</a>
-                        </div>
-                </aside>
+            </nav>
+            <hr>
+            <div class="logout-cont">
+                <a href="../logout.php" class="logout">Logout</a>
+            </div>
+        </aside>
 
-                <main class="container">
-                    <header>
-                        <h1>Loan Payment</h1>
-                        <button class="hamburger">&#9776;</button> <!-- Hamburger icon -->
-                    </header>
+        <main class="container">
+            <header>
+                <h1>Loan Payment</h1>
+                <button class="hamburger">&#9776;</button> <!-- Hamburger icon -->
+            </header>
 
-                    <div class="content">
-                        <h2>Make a Loan Payment</h2>
+            <div class="content">
+                <h2>Make a Loan Payment</h2>
 
-                        <?php if ($error): ?>
-                            <div class="alert alert-danger"><?= $error ?></div>
-                        <?php endif; ?>
+                <?php if ($error): ?>
+                <div class="alert alert-danger"><?= $error ?></div>
+                <?php endif; ?>
 
-                        <form method="POST">
-                            <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
-                            <div class="form-group">
-                                <label for="loan_id">Loan ID</label>
-                                <input type="number" name="loan_id" id="loan_id" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="payment_amount">Payment Amount (₱)</label>
-                                <input type="number" name="payment_amount" id="payment_amount" min="0.01" step="0.01" required>
-                            </div>
-                            <button type="submit" class="btn">Submit Payment</button>
-                        </form>
+                <form method="POST">
+                    <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
+                    <div class="form-group">
+                        <label for="loan_id">Loan ID</label>
+                        <input type="number" name="loan_id" id="loan_id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="payment_amount">Payment Amount (₹)</label>
+                        <input type="number" name="payment_amount" id="payment_amount" min="0.01" step="0.01" required>
+                    </div>
+                    <button type="submit" class="btn">Submit Payment</button>
+                </form>
 
-                        <h2>Your Unpaid Loans</h2>
+                <h2>Your Unpaid Loans</h2>
 
-                        <?php if (empty($loans)): ?>
-                            <p>You have no active loans.</p>
-                        <?php else: ?>
-                            <table class="loans-table">
-                                <thead>
-                                <tr>
-                                    <th>Loan ID</th>
-                                    <th>Amount Due</th>
-                                    <th>Penalty</th>
-                                    <th>Total with Penalty</th>
-                                    <th>Interest Rate</th>
-                                    <th>Term</th>
-                                    <th>Status</th>
-                                    <th>Created</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($loans as $loan): ?>
-                                        <tr>
-                                            <td><?= $loan['loan_id'] ?></td>
-                                            <td>₱<?= number_format($loan['total_due'], 2) ?></td>
-                                            <td>₱<?= number_format($loan['penalty_amount'], 2) ?></td>
-                                            <td>₱<?= number_format($loan['total_due'] + $loan['penalty_amount'], 2) ?></td>
-                                            <td><?= $loan['interest_rate'] ?>%</td>
-                                            <td><?= $loan['term_months'] ?> months</td>
-                                            <td>
-                                                <?php 
+                <?php if (empty($loans)): ?>
+                <p>You have no active loans.</p>
+                <?php else: ?>
+                <table class="loans-table">
+                    <thead>
+                        <tr>
+                            <th>Loan ID</th>
+                            <th>Amount Due</th>
+                            <th>Penalty</th>
+                            <th>Total with Penalty</th>
+                            <th>Interest Rate</th>
+                            <th>Term</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($loans as $loan): ?>
+                        <tr>
+                            <td><?= $loan['loan_id'] ?></td>
+                            <td>₹<?= number_format($loan['total_due'], 2) ?></td>
+                            <td>₹<?= number_format($loan['penalty_amount'], 2) ?></td>
+                            <td>₹<?= number_format($loan['total_due'] + $loan['penalty_amount'], 2) ?></td>
+                            <td><?= $loan['interest_rate'] ?>%</td>
+                            <td><?= $loan['term_months'] ?> months</td>
+                            <td>
+                                <?php 
                                                 $currentDate = new DateTime();
                                                 $approvedDate = new DateTime($loan['approved_at']);
                                                 $termEndDate = clone $approvedDate;
@@ -385,16 +355,17 @@ $profilePic = $user['profile_picture'] ? '../uploads/' . $user['profile_picture'
                                                     echo '<span class="status-active">Active</span>';
                                                 }
                                                 ?>
-                                            </td>
-                                            <td><?= date('M j, Y', strtotime($loan['created_at'])) ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        <?php endif; ?>
-                    </div>
-                </main>
-</div>
-<script src="../assets/js/session.js"></script>
+                            </td>
+                            <td><?= date('M j, Y', strtotime($loan['created_at'])) ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <?php endif; ?>
+            </div>
+        </main>
+    </div>
+    <script src="../assets/js/session.js"></script>
 </body>
+
 </html>

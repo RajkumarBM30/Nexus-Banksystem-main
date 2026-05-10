@@ -5,10 +5,35 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
+if (isset($_SESSION['transfer_success'])) {
+
+    echo '
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        Swal.fire({
+            icon: "success",
+            title: "Transfer Successful!",
+            text: "Money transferred successfully.",
+            confirmButtonColor: "#5b4bdb"
+        });
+
+    });
+
+    </script>
+
+    ';
+
+    unset($_SESSION['transfer_success']);
+}
 
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
-require_once __DIR__ . '/../includes/otp.php';
+// require_once __DIR__ . '/../includes/otp.php';
 require_once '../includes/session_manager.php';
 
 redirectIfNotLoggedIn();
@@ -61,19 +86,88 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = $stmt->fetch();
             $email = $user['email'] ?? '';
 
-            if ($email && generateOTP($email)) {
-                // Store the pending transfer in session for OTP verification
-                $_SESSION['pending_transfer'] = [
-                    'amount' => $amount,
-                    'to_account' => $toAccount,
-                    'description' => $description
-                ];
+        try {
+        
+            $pdo->beginTransaction();
+        
+            // Deduct sender balance
+            $stmt = $pdo->prepare("
+                UPDATE accounts
+                SET balance = balance - ?
+                WHERE account_id = ?
+            ");
+        
+            $stmt->execute([
+                $amount,
+                $fromAccount['account_id']
+            ]);
+        
+            // Add recipient balance
+            $stmt = $pdo->prepare("
+                UPDATE accounts
+                SET balance = balance + ?
+                WHERE account_id = ?
+            ");
+        
+            $stmt->execute([
+                $amount,
+                $recipientAccount['account_id']
+            ]);
+        
+            // Save sender transaction
+            $stmt = $pdo->prepare("
+                INSERT INTO transactions
+                (
+                    account_id,
+                    type,
+                    amount,
+                    description,
+                    created_at
+                )
+                VALUES (?, ?, ?, ?, NOW())
+            ");
+        
+            $stmt->execute([
+                $fromAccount['account_id'],
+                'transfer_out',
+                $amount,
+                $description
+            ]);
+        
+            // Save receiver transaction
+            $stmt = $pdo->prepare("
+                INSERT INTO transactions
+                (
+                    account_id,
+                    type,
+                    amount,
+                    description,
+                    created_at
+                )
+                VALUES (?, ?, ?, ?, NOW())
+            ");
+        
+            $stmt->execute([
+                $recipientAccount['account_id'],
+                'transfer_in',
+                $amount,
+                $description
+            ]);
+        
+            $pdo->commit();
+        
+          $_SESSION['transfer_success'] = true;
 
-                header("Location: ../otp-verification.php?type=transfer");
-                exit();
-            } else {
-                $error = "Failed to send OTP. Please try again.";
-            }
+          header("Location: transfer.php");
+          exit();
+        
+        } catch (Exception $e) {
+        
+            $pdo->rollBack();
+        
+            $error = 'Transfer failed.';
+        
+        }    
         }
     }
 }
@@ -198,12 +292,17 @@ $weeklyTransfers = $stmt->fetchColumn() ?: 0;
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/transfer.css">
 
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
     <!-- NAVIGATION EFFECTS -->
     <script src="../assets/js/navhover.js"></script>
     <script src="../assets/js/sidebar.js"></script>
 
     <!-- apexchartjs -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
 </head>
 
 <body>
@@ -319,7 +418,7 @@ $weeklyTransfers = $stmt->fetchColumn() ?: 0;
                                     <input type="text" name="description">
                                 </div>
 
-                                <button type="submit" class="btn">Send OTP & Proceed</button>
+                                <button type="submit" class="btn">Transfer Money</button>
                             </form>
 
 
@@ -570,7 +669,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 tooltip: {
                     y: {
-                        formatter: val => `₱ ${val.toLocaleString()}`
+                        formatter: val => `₹ ${val.toLocaleString()}`
                     }
                 },
                 grid: {
@@ -767,7 +866,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 tooltip: {
                     y: {
-                        formatter: val => `₱ ${val.toLocaleString()}`
+                        formatter: val => `₹ ${val.toLocaleString()}`
                     }
                 },
                 grid: {

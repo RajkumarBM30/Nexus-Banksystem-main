@@ -31,11 +31,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Validate amount
         if ($amount < 100) {
-            $error = "Minimum withdrawal amount is ₱100.";
+            $error = "Minimum withdrawal amount is ₹100.";
         } elseif ($amount <= 0) {
             $error = "Amount must be greater than 0.";
         } elseif ($amount > 25000) {
-            $error = "Maximum withdrawal amount is ₱25,000 per transaction.";
+            $error = "Maximum withdrawal amount is ₹25,000 per transaction.";
         } elseif ($amount > $balance) {
             $error = "Insufficient balance.";
         } else {
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt = $pdo->prepare("UPDATE accounts SET balance = balance - ? WHERE account_id = ?");
                 $stmt->execute([$amount, $account['account_id']]);
             
-                $description = "Withdrawal of ₱" . number_format($amount, 2);
+                $description = "Withdrawal of ₹" . number_format($amount, 2);
                 $stmt = $pdo->prepare("INSERT INTO transactions (account_id, type, amount, description) VALUES (?, 'withdrawal', ?, ?)");
                 $stmt->execute([$account['account_id'], $amount, $description]);
             
@@ -537,7 +537,7 @@ $weeklyDeposits = $stmt->fetchColumn() ?: 0;
                     },
                     tooltip: {
                         y: {
-                            formatter: val => `₱ ${val.toLocaleString()}`
+                            formatter: val => `₹ ${val.toLocaleString()}`
                         }
                     },
                     grid: {

@@ -25,6 +25,7 @@ $userInvestments = $stmt->fetchAll();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,99 +33,130 @@ $userInvestments = $stmt->fetchAll();
     <link rel="stylesheet" href="../assets/css/admin-main.css">
     <link rel="stylesheet" href="../assets/css/admin-track-investment.css">
 
-       <script src="../assets/js/sidebar.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
 </head>
+
 <body>
-     <div class="wrapper">
-            <aside class="sidebar">
-                        
-                            <div class="Logos-cont">
-                                <img src="../assets/images/Logo-color.png" alt="SecureBank Logo" class="logo-container">
-                            </div>
+    <div class="wrapper">
+        <aside class="sidebar">
 
-                            <nav class="dashboard-nav">
-                                <a href="dashboard.php" class="active btn ">Dashboard</a>
-                                <a href="manage-users.php" class="btn ">Manage Users</a>
-                                <a href="manage-loans.php" class="btn">Manage Loans</a>
-                                <a href="manage-investments.php" class="btn">Manage Investments</a>
-                                <a href="track-investments.php" class="btn dash-text">Users Investments</a>
-                                <a href="role.php" class="btn">Roles</a>
-                                <a href="recent_transactions.php" class="btn">Transactions</a>
-                                <a href="recent_transactions.php" class="btn">Loan History</a>
-                                <a href="login-records.php" class="btn">Login Records</a>
-                                <a href="manage-messages.php" class="btn">Contact Messages</a>
-                            </nav>
+            <div class="Logos-cont">
+                <img src="../assets/images/Logo-color.png" alt="SecureBank Logo" class="logo-container">
+            </div>
 
-                             <div class="logout-cont">
-                                <a href="../logout.php" class="logout">Logout</a>
-                            </div>
-                </aside>
+            <nav class="dashboard-nav">
+                <a href="dashboard.php" class="active btn ">Dashboard</a>
+                <a href="manage-users.php" class="btn ">Manage Users</a>
+                <a href="manage-loans.php" class="btn">Manage Loans</a>
+                <a href="manage-investments.php" class="btn">Manage Investments</a>
+                <a href="track-investments.php" class="btn dash-text">Users Investments</a>
+                <a href="role.php" class="btn">Roles</a>
+                <a href="recent_transactions.php" class="btn">Transactions</a>
+                <a href="recent_transactions.php" class="btn">Loan History</a>
+                <a href="login-records.php" class="btn">Login Records</a>
+                <a href="manage-messages.php" class="btn">Contact Messages</a>
+            </nav>
+
+            <div class="logout-cont">
+                <a href="../logout.php" class="logout">Logout</a>
+            </div>
+        </aside>
 
 
-    <main class="container">
-        <header>
-            <h1>User Investments Tracking</h1>
-            <button class="hamburger">&#9776;</button> <!-- Hamburger icon -->
-        </header>
+        <main class="container">
+            <header>
+                <h1>User Investments Tracking</h1>
+                <button class="hamburger">&#9776;</button> <!-- Hamburger icon -->
+            </header>
 
-        <div class="content">
-            <h2>User Investment Overview</h2>
-            <?php if (empty($userInvestments)): ?>
+            <div class="content">
+                <h2>User Investment Overview</h2>
+                <?php if (empty($userInvestments)): ?>
                 <p>No investments found.</p>
                 <div class="table-cont">
-            <?php else: ?>
-                <table class="user-investments-table">
-                    <thead>
-                        <tr>
-                            <th>User</th>
-                            <th>Email</th>
-                            <th>Investment Plan</th>
-                            <th>Amount Invested</th>
-                            <th>Interest Rate</th>
-                            <th>Status</th>
-                            <th>Invested Date</th>
-                            <th>Matured Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($userInvestments as $investment): ?>
+                    <?php else: ?>
+                    <table class="user-investments-table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Email</th>
+                                <th>Investment Plan</th>
+                                <th>Amount Invested</th>
+                                <th>Interest Rate</th>
+                                <th>Status</th>
+                                <th>Invested Date</th>
+                                <th>Matured Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($userInvestments as $investment): ?>
                             <tr>
                                 <td data-label="User"><?= htmlspecialchars($investment['full_name']) ?></td>
                                 <td data-label="Email"><?= htmlspecialchars($investment['email']) ?></td>
                                 <td data-label="Investment Plan"><?= htmlspecialchars($investment['plan_name']) ?></td>
-                                <td data-label="Amount Invested">₱<?= number_format($investment['amount'], 2) ?></td>
-                                <td data-label="Interest Rate"><?= number_format($investment['interest_rate'], 2) ?>%</td>
+                                <td data-label="Amount Invested">₹<?= number_format($investment['amount'], 2) ?></td>
+                                <td data-label="Interest Rate"><?= number_format($investment['interest_rate'], 2) ?>%
+                                </td>
                                 <td data-label="Status"><?= htmlspecialchars($investment['status']) ?></td>
-                                <td data-label="Invested Date"><?= !empty($investment['created_at']) ? date('M j, Y', strtotime($investment['created_at'])) : 'N/A' ?></td>
-                                <td data-label="Matured Date"><?= !empty($investment['matured_at']) ? date('M j, Y', strtotime($investment['matured_at'])) : 'N/A' ?></td>
+                                <td data-label="Invested Date">
+                                    <?= !empty($investment['created_at']) ? date('M j, Y', strtotime($investment['created_at'])) : 'N/A' ?>
+                                </td>
+                                <td data-label="Matured Date">
+                                    <?= !empty($investment['matured_at']) ? date('M j, Y', strtotime($investment['matured_at'])) : 'N/A' ?>
+                                </td>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            <?php endif; ?>
-            <!-- Pagination Controls -->
-            <?php if ($totalPages > 1): ?>
-            <style>
-            .pagination { text-align: center; margin: 20px 0; }
-            .pagination a { display: inline-block; margin: 0 4px; padding: 6px 12px; color: #007bff; background: #fff; border: 1px solid #ddd; border-radius: 4px; text-decoration: none; transition: background 0.2s, color 0.2s; }
-            .pagination a.btn-primary, .pagination a.active { background: #007bff; color: #fff; border-color: #007bff; pointer-events: none; }
-            .pagination a:hover:not(.btn-primary):not(.active) { background: #f0f0f0; }
-            </style>
-            <div class="pagination">
-                <?php if ($page > 1): ?>
-                    <a href="?page=<?= $page - 1 ?>">&laquo; Prev</a>
-                <?php endif; ?>
-                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                    <a href="?page=<?= $i ?>" class="<?= $i == $page ? 'btn-primary active' : '' ?>"><?= $i ?></a>
-                <?php endfor; ?>
-                <?php if ($page < $totalPages): ?>
-                    <a href="?page=<?= $page + 1 ?>">Next &raquo;</a>
-                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <?php endif; ?>
+                    <!-- Pagination Controls -->
+                    <?php if ($totalPages > 1): ?>
+                    <style>
+                    .pagination {
+                        text-align: center;
+                        margin: 20px 0;
+                    }
+
+                    .pagination a {
+                        display: inline-block;
+                        margin: 0 4px;
+                        padding: 6px 12px;
+                        color: #007bff;
+                        background: #fff;
+                        border: 1px solid #ddd;
+                        border-radius: 4px;
+                        text-decoration: none;
+                        transition: background 0.2s, color 0.2s;
+                    }
+
+                    .pagination a.btn-primary,
+                    .pagination a.active {
+                        background: #007bff;
+                        color: #fff;
+                        border-color: #007bff;
+                        pointer-events: none;
+                    }
+
+                    .pagination a:hover:not(.btn-primary):not(.active) {
+                        background: #f0f0f0;
+                    }
+                    </style>
+                    <div class="pagination">
+                        <?php if ($page > 1): ?>
+                        <a href="?page=<?= $page - 1 ?>">&laquo; Prev</a>
+                        <?php endif; ?>
+                        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                        <a href="?page=<?= $i ?>" class="<?= $i == $page ? 'btn-primary active' : '' ?>"><?= $i ?></a>
+                        <?php endfor; ?>
+                        <?php if ($page < $totalPages): ?>
+                        <a href="?page=<?= $page + 1 ?>">Next &raquo;</a>
+                        <?php endif; ?>
+                    </div>
+                    <?php endif; ?>
+                </div>
             </div>
-            <?php endif; ?>
-            </div>
-        </div>
-    </main>
+        </main>
     </div>
 </body>
+
 </html>

@@ -118,9 +118,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!empty($uploadErrors)) {
             $error = implode('<br>', $uploadErrors);
         } elseif ($amount < 100) {
-            $error = "Minimum loan amount is ₱100";
+            $error = "Minimum loan amount is ₹100";
         } elseif ($amount > 50000) {
-            $error = "Maximum loan amount is ₱50,000";
+            $error = "Maximum loan amount is ₹50,000";
         } elseif ($term < 1 || $term > 60) {
             $error = "Loan term must be between 1 and 60 months";
         } else {

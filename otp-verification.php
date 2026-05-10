@@ -272,7 +272,7 @@ try {
     $stmt->execute([$amount, $account['account_id']]);
 
     // Insert transaction
-    $description = "Withdrawal of ₱" . number_format($amount, 2);
+    $description = "Withdrawal of ₹" . number_format($amount, 2);
     $stmt = $pdo->prepare("INSERT INTO transactions (account_id, type, amount, description) VALUES (?, 'withdrawal', ?, ?)");
     $stmt->execute([$account['account_id'], $amount, $description]);
 
@@ -309,7 +309,7 @@ try {
                         $pdo->prepare("UPDATE accounts SET balance = balance + ? WHERE account_id = ?")
                             ->execute([$deposit['amount'], $account['account_id']]);
 
-                        $description = "Deposit of $" . number_format($deposit['amount'], 2);
+                        $description = "Deposit of ₹" . number_format($deposit['amount'], 2);
                         $pdo->prepare("INSERT INTO transactions (account_id, type, amount, description) VALUES (?, 'deposit', ?, ?)")
                             ->execute([$account['account_id'], $deposit['amount'], $description]);
 
@@ -318,11 +318,11 @@ try {
                         // Send deposit email
                         $subject = "Deposit Successful";
                         $body = "Hello,<br><br>"
-                              . "You have successfully deposited <strong>$" . number_format($deposit['amount'], 2) . "</strong> into your account.<br><br>"
+                              . "You have successfully deposited <strong>₹" . number_format($deposit['amount'], 2) . "</strong> into your account.<br><br>"
                               . "Thank you,<br>Nexus Bank";
                         sendNotification($user['email'], $subject, $body);
 
-                        $_SESSION['flash_success'] = "Successfully deposited $" . number_format($deposit['amount'], 2);
+                        $_SESSION['flash_success'] = "Successfully deposited ₹" . number_format($deposit['amount'], 2);
                         header("Location: user/deposit.php");
                         exit();
 
@@ -344,55 +344,50 @@ try {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>OTP Verification - Nexus E‑Banking</title>
-  <link rel="stylesheet" href="./assets/css/main.css">
-  <link rel="stylesheet" href="./assets/css/otp.css">
+    <meta charset="UTF-8">
+    <title>OTP Verification - Nexus E‑Banking</title>
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/otp.css">
 </head>
+
 <body>
-  <div class="otp-page">
-    <img src="./assets/images/Logo.png" alt="Nexus Logo" class="otp-logo">
-    <div class="otp-card">
+    <div class="otp-page">
+        <img src="./assets/images/Logo.png" alt="Nexus Logo" class="otp-logo">
+        <div class="otp-card">
 
-      <h2 class="otp-title">OTP Verification</h2>
-      <p class="otp-desc">
-        Please enter the OTP (One‑Time Password) sent to your registered email account to complete your verification
-      </p>
+            <h2 class="otp-title">OTP Verification</h2>
+            <p class="otp-desc">
+                Please enter the OTP (One‑Time Password) sent to your registered email account to complete your
+                verification
+            </p>
 
-      <?php if ($error): ?>
-        <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
-      <?php endif; ?>
+            <?php if ($error): ?>
+            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+            <?php endif; ?>
 
-      <form id="otp-form" method="POST" novalidate>
-        <input type="hidden" name="type" value="<?= htmlspecialchars($type) ?>">
+            <form id="otp-form" method="POST" novalidate>
+                <input type="hidden" name="type" value="<?= htmlspecialchars($type) ?>">
 
-        <div class="otp-inputs">
-          <?php for ($i = 0; $i < 6; $i++): ?>
-            <input
-              type="text"
-              inputmode="numeric"
-              pattern="\d"
-              maxlength="1"
-              class="otp-input"
-              data-index="<?= $i ?>"
-            >
-          <?php endfor; ?>
-        </div>
-        <input type="hidden" name="otp" id="otp">
+                <div class="otp-inputs">
+                    <?php for ($i = 0; $i < 6; $i++): ?>
+                    <input type="text" inputmode="numeric" pattern="\d" maxlength="1" class="otp-input"
+                        data-index="<?= $i ?>">
+                    <?php endfor; ?>
+                </div>
+                <input type="hidden" name="otp" id="otp">
 
-        <div class="timer-resend">
-          <div>Remaining time: <span id="countdown">00:60s</span></div>
-          <div>Didn't get the code? 
-            <a href="resend-otp.php?type=<?= htmlspecialchars($type) ?>"
-               id="resend-link"
-               class="disabled"
-            >Resend</a>
-          </div>
-        </div>
+                <div class="timer-resend">
+                    <div>Remaining time: <span id="countdown">00:60s</span></div>
+                    <div>Didn't get the code?
+                        <a href="resend-otp.php?type=<?= htmlspecialchars($type) ?>" id="resend-link"
+                            class="disabled">Resend</a>
+                    </div>
+                </div>
 
-        <button type="submit" class="btn-verify">Verify</button>
-        <?php
+                <button type="submit" class="btn-verify">Verify</button>
+                <?php
         $cancelUrl = 'login.php';
         switch ($type) {
             case 'deposit':
@@ -412,17 +407,17 @@ try {
                 break;
         }
         ?>
-        <a href="<?= $cancelUrl ?>" class="btn-cancel">Cancel</a>
-      </form>
+                <a href="<?= $cancelUrl ?>" class="btn-cancel">Cancel</a>
+            </form>
+        </div>
     </div>
-  </div>
 
-<script>
+    <script>
     // -- Auto-tab between inputs and collect on submit --
     const inputs = document.querySelectorAll('.otp-input');
     inputs.forEach((input, i) => {
         input.addEventListener('input', () => {
-            input.value = input.value.replace(/[^0-9]/g,'').charAt(0) || '';
+            input.value = input.value.replace(/[^0-9]/g, '').charAt(0) || '';
             if (input.value && i < inputs.length - 1) {
                 inputs[i + 1].focus();
             }
@@ -447,12 +442,14 @@ try {
         time--;
         const minutes = Math.floor(time / 60);
         const seconds = time % 60;
-        countdownEl.textContent = String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0') + 's';
+        countdownEl.textContent = String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0') +
+            's';
         if (time <= 0) {
             clearInterval(timerId);
             resendLink.classList.remove('disabled');
         }
     }, 1000);
-</script>
+    </script>
 </body>
+
 </html>

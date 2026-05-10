@@ -78,7 +78,7 @@ $rawAmount  = floatval($txn['amount'] ?? 0);
 $isCredit   = in_array($txn['type'], ['deposit','transfer_in', 'approved_loan', 'withdrawal_matured_investment']);
 $signPrefix = $isCredit ? '+' : '-';
 $absAmt     = number_format(abs($rawAmount), 2);
-$displayAmt = $signPrefix . '₱ ' . $absAmt;
+$displayAmt = $signPrefix . '₹ ' . $absAmt;
 
 // Status is always “SUCCESS” for a completed transaction
 $statusText   = 'SUCCESS';
@@ -94,8 +94,8 @@ $relatedAcct = $txn['related_account_number']
     ? $txn['related_account_number']
     : '—';
 
-// Currency is always "PHP"
-$currency = 'PHP';
+// Currency is always "INR"
+$currency = 'INR';
 
 // ---------------------------------------------------------------------------
 // 4) Create TCPDF document

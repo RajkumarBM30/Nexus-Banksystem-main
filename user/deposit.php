@@ -41,12 +41,12 @@ if ($account) {
             $amount = filter_var($_POST['amount'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
             if ($amount < 100) {
-                $error = "Minimum deposit amount is ₱100.";
+                $error = "Minimum deposit amount is ₹100.";
             } elseif ($amount <= 0) {
                 $error = "Amount must be greater than 0.";
             } elseif (($weeklyDeposits + $amount) > $weeklyLimit) {
                 $remaining = $weeklyLimit - $weeklyDeposits;
-                $error = "Weekly deposit limit exceeded. You can only deposit ₱" . number_format($remaining, 2) . " more this week.";
+                $error = "Weekly deposit limit exceeded. You can only deposit ₹" . number_format($remaining, 2) . " more this week.";
             } else {
                 // Get user's email
                 $stmt = $pdo->prepare("SELECT email FROM users WHERE user_id = ?");
@@ -64,7 +64,7 @@ if ($account) {
                     $stmt->execute([$amount, $accountId]);
                 
                     // Insert transaction
-                    $description = "Deposit of ₱" . number_format($amount, 2);
+                    $description = "Deposit of ₹" . number_format($amount, 2);
                     $stmt = $pdo->prepare("INSERT INTO transactions (account_id, type, amount, description) VALUES (?, 'deposit', ?, ?)");
                     $stmt->execute([$accountId, $amount, $description]);
                 
@@ -484,7 +484,7 @@ $averageWeeklyDeposit = $stmt->fetchColumn() ?: 0;
                     },
                     tooltip: {
                         y: {
-                            formatter: val => `₱ ${val.toLocaleString()}`
+                            formatter: val => `₹ ${val.toLocaleString()}`
                         }
                     },
                     grid: {

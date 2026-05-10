@@ -167,7 +167,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $purpose = htmlspecialchars($_POST['purpose'], ENT_QUOTES, 'UTF-8');
 
             if ($amount < 100) {
-                $error = "Minimum loan amount is ₱100";
+                $error = "Minimum loan amount is ₹100";
             } elseif ($term < 1 || $term > 60) {
                 $error = "Loan term must be between 1 and 60 months";
             } else {
@@ -249,6 +249,7 @@ $profilePic = (!empty($user['profile_picture']) && file_exists('../uploads/' . $
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -262,522 +263,518 @@ $profilePic = (!empty($user['profile_picture']) && file_exists('../uploads/' . $
 
     <style>
     .profile-picture {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 2px solid #ccc;
-}
-/* Modal Background (overlay) */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    overflow: auto; /* Enable scrolling if necessary */
-}
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+    }
 
-/* Modal Dialog Box */
-.modal-dialog {
-    position: relative;
-    top: 10%;
-    margin: auto;
-    width: 80%; /* Modal width */
-    max-width: 900px; /* Maximum width to prevent large images from making it too wide */
-}
+    /* Modal Background (overlay) */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        overflow: auto;
+        /* Enable scrolling if necessary */
+    }
 
-/* Modal Content */
-.modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    position: relative;
-}
+    /* Modal Dialog Box */
+    .modal-dialog {
+        position: relative;
+        top: 10%;
+        margin: auto;
+        width: 80%;
+        /* Modal width */
+        max-width: 900px;
+        /* Maximum width to prevent large images from making it too wide */
+    }
 
-/* Close Button (X) */
-.close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: #aaa;
-    font-size: 28px;
-    font-weight: bold;
-}
+    /* Modal Content */
+    .modal-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        position: relative;
+    }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
+    /* Close Button (X) */
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #aaa;
+        font-size: 28px;
+        font-weight: bold;
+    }
 
-/* Modal Image */
-.modal-body img {
-    max-width: 100%; /* Make sure image doesn't overflow */
-    max-height: 80vh; /* Adjust this value to control the image size */
-    display: block;
-    margin: 0 auto;
-}
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
 
-/* Back Button */
-#backButton {
-    margin-left: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-#backButton:hover {
-    background-color: #0056b3;
-}
+    /* Modal Image */
+    .modal-body img {
+        max-width: 100%;
+        /* Make sure image doesn't overflow */
+        max-height: 80vh;
+        /* Adjust this value to control the image size */
+        display: block;
+        margin: 0 auto;
+    }
 
-.tab-content {
-    display: none;
-    margin-top: 20px;
-}
-.tab-content.active {
-    display: block;
-}
-.tabs .tab {
-    cursor: pointer;
-    padding: 10px 20px;
-    margin-right: 5px;
-    border-bottom: 2px solid transparent;
-}
-.tabs .tab.active {
-    border-bottom: 2px solid #007bff;
-    color: #007bff;
-}
-.security-form {
-    max-width: 500px;
-    margin: 0 auto;
-}
-.security-form .form-group {
-    margin-bottom: 20px;
-}
-.security-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-.security-form input[type="password"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-.security-form button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-.security-form button:hover {
-    background-color: #0056b3;
-}
+    /* Back Button */
+    #backButton {
+        margin-left: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 
-.security-section {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-}
+    #backButton:hover {
+        background-color: #0056b3;
+    }
 
-.security-section h3 {
-    color: #333;
-    margin-bottom: 10px;
-}
+    .tab-content {
+        display: none;
+        margin-top: 20px;
+    }
 
-.security-section .description {
-    color: #666;
-    margin-bottom: 25px;
-}
+    .tab-content.active {
+        display: block;
+    }
 
-.security-form {
-    background: #f8f9fa;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+    .tabs .tab {
+        cursor: pointer;
+        padding: 10px 20px;
+        margin-right: 5px;
+        border-bottom: 2px solid transparent;
+    }
 
-.security-form .form-group {
-    margin-bottom: 20px;
-}
+    .tabs .tab.active {
+        border-bottom: 2px solid #007bff;
+        color: #007bff;
+    }
 
-.security-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: #333;
-}
+    .security-form {
+        max-width: 500px;
+        margin: 0 auto;
+    }
 
-.security-form input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-}
+    .security-form .form-group {
+        margin-bottom: 20px;
+    }
 
-.security-form .form-text {
-    display: block;
-    margin-top: 5px;
-    font-size: 12px;
-    color: #666;
-}
+    .security-form label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
 
-.btn-change-password {
-    background-color: #007bff;
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: background-color 0.2s;
-}
+    .security-form input[type="password"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
 
-.btn-change-password:hover {
-    background-color: #0056b3;
-}
+    .security-form button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
 
-</style>
+    .security-form button:hover {
+        background-color: #0056b3;
+    }
+
+    .security-section {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .security-section h3 {
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .security-section .description {
+        color: #666;
+        margin-bottom: 25px;
+    }
+
+    .security-form {
+        background: #f8f9fa;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .security-form .form-group {
+        margin-bottom: 20px;
+    }
+
+    .security-form label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #333;
+    }
+
+    .security-form input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .security-form .form-text {
+        display: block;
+        margin-top: 5px;
+        font-size: 12px;
+        color: #666;
+    }
+
+    .btn-change-password {
+        background-color: #007bff;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: background-color 0.2s;
+    }
+
+    .btn-change-password:hover {
+        background-color: #0056b3;
+    }
+    </style>
 </head>
 
 <body>
     <div class="wrapper">
 
         <aside class="sidebar">
-                        
-           <div class="Logos-cont">
-                    <img src="../assets/images/Logo-color.png" alt="SecureBank Logo" class="logo-container">
-                </div>
-                
-                <hr>
 
-                <div class="profile-container">
-                    <img src="<?= $profilePic ?>" alt="Profile Picture" class="img-fluid">
-                    <h5><?= htmlspecialchars($user['full_name']) ?></h5>
-                    <p><?= htmlspecialchars($user['account_number']) ?></p>
-                </div>
+            <div class="Logos-cont">
+                <img src="../assets/images/Logo-color.png" alt="SecureBank Logo" class="logo-container">
+            </div>
 
-                <hr>
+            <hr>
+
+            <div class="profile-container">
+                <img src="<?= $profilePic ?>" alt="Profile Picture" class="img-fluid">
+                <h5><?= htmlspecialchars($user['full_name']) ?></h5>
+                <p><?= htmlspecialchars($user['account_number']) ?></p>
+            </div>
+
+            <hr>
 
             <nav>
-                    <a href="dashboard.php" class="btn">
-                        <img 
-                        src="../assets/images/inactive-dashboard.png" 
-                        alt="dashboard-logo" 
-                        class="nav-icon"
+                <a href="dashboard.php" class="btn">
+                    <img src="../assets/images/inactive-dashboard.png" alt="dashboard-logo" class="nav-icon"
                         data-default="../assets/images/inactive-dashboard.png"
-                        data-hover="../assets/images/hover-dashboard.png"
-                        > 
-                        Dashboard
-                    </a>
+                        data-hover="../assets/images/hover-dashboard.png">
+                    Dashboard
+                </a>
 
-                    <a href="deposit.php" class="btn">
-                        <img 
-                        src="../assets/images/inactive-deposit.png" 
-                        alt="deposit-logo" 
-                        class="nav-icon"
+                <a href="deposit.php" class="btn">
+                    <img src="../assets/images/inactive-deposit.png" alt="deposit-logo" class="nav-icon"
                         data-default="../assets/images/inactive-deposit.png"
-                        data-hover="../assets/images/hover-deposit.png"
-                        > 
-                        Deposit
-                    </a>
+                        data-hover="../assets/images/hover-deposit.png">
+                    Deposit
+                </a>
 
-                    <a href="withdraw.php" class="btn">
-                        <img 
-                        src="../assets/images/inactive-withdraw.png" 
-                        alt="withdraw-logo" 
-                        class="nav-icon"
+                <a href="withdraw.php" class="btn">
+                    <img src="../assets/images/inactive-withdraw.png" alt="withdraw-logo" class="nav-icon"
                         data-default="../assets/images/inactive-withdraw.png"
-                        data-hover="../assets/images/hover-withdraw.png"
-                        > 
-                        Withdraw
-                    </a>
+                        data-hover="../assets/images/hover-withdraw.png">
+                    Withdraw
+                </a>
 
-                    <a href="transfer.php" class="btn">
-                        <img 
-                        src="../assets/images/inactive-transfer.png" 
-                        alt="transfer-logo" 
-                        class="nav-icon"
+                <a href="transfer.php" class="btn">
+                    <img src="../assets/images/inactive-transfer.png" alt="transfer-logo" class="nav-icon"
                         data-default="../assets/images/inactive-transfer.png"
-                        data-hover="../assets/images/hover-transfer.png"
-                        > 
-                        Transfer
-                    </a>
+                        data-hover="../assets/images/hover-transfer.png">
+                    Transfer
+                </a>
 
-                    <a href="transactions.php" class="btn">
-                        <img 
-                        src="../assets/images/inactive-transaction.png" 
-                        alt="transactions-logo" 
-                        class="nav-icon"
+                <a href="transactions.php" class="btn">
+                    <img src="../assets/images/inactive-transaction.png" alt="transactions-logo" class="nav-icon"
                         data-default="../assets/images/inactive-transaction.png"
-                        data-hover="../assets/images/hover-transaction.png"
-                        > 
-                        Transactions
-                    </a>
+                        data-hover="../assets/images/hover-transaction.png">
+                    Transactions
+                </a>
 
-                    <a href="investment.php" class="btn">
-                        <img 
-                        src="../assets/images/inactive-investment.png" 
-                        alt="investment-logo" 
-                        class="nav-icon"
+                <a href="investment.php" class="btn">
+                    <img src="../assets/images/inactive-investment.png" alt="investment-logo" class="nav-icon"
                         data-default="../assets/images/inactive-investment.png"
-                        data-hover="../assets/images/hover-investment.png"
-                        > 
-                        Investment
-                    </a>
+                        data-hover="../assets/images/hover-investment.png">
+                    Investment
+                </a>
 
-                    <a href="loan.php" class="btn ">
-                        <img 
-                        src="../assets/images/inactive-loans.png" 
-                        alt="loans-logo" 
-                        class="nav-icon"
+                <a href="loan.php" class="btn ">
+                    <img src="../assets/images/inactive-loans.png" alt="loans-logo" class="nav-icon"
                         data-default="../assets/images/inactive-loans.png"
-                        data-hover="../assets/images/inactive-loans.png"
-                        > 
-                        Loans
-                    </a>
+                        data-hover="../assets/images/inactive-loans.png">
+                    Loans
+                </a>
 
-                    <a href="profile.php" class="btn dash-text">
-                        <img 
-                        src="../assets/images/hover-profile.png" 
-                        alt="loans-logo" 
-                        class="nav-icon"
-                        data-default="../assets/images/hover-profile.png"
-                        data-hover="../assets/images/hover-profile"
-                        > 
-                        Settings
-                    </a>
+                <a href="profile.php" class="btn dash-text">
+                    <img src="../assets/images/hover-profile.png" alt="loans-logo" class="nav-icon"
+                        data-default="../assets/images/hover-profile.png" data-hover="../assets/images/hover-profile">
+                    Settings
+                </a>
 
-                </nav>       
-<hr>
+            </nav>
+            <hr>
             <div class="logout-cont">
                 <a href="../logout.php" class="logout">Logout</a>
             </div>
         </aside>
-    
+
         <main class="container">
-                <header>
-                    <h1>Profile Information</h1>
-                    <button class="hamburger">&#9776;</button> <!-- Hamburger icon -->
-                </header>
+            <header>
+                <h1>Profile Information</h1>
+                <button class="hamburger">&#9776;</button> <!-- Hamburger icon -->
+            </header>
 
-              <div class="content">
-                        <!-- Heading and Instructions -->
-                        <h2>Edit Profile</h2>
-                        <p class="description">
-                            You can update your personal information, upload a profile picture, and review your account details here.
-                            Please make sure to click "Save Changes" after editing.
-                        </p>
+            <div class="content">
+                <!-- Heading and Instructions -->
+                <h2>Edit Profile</h2>
+                <p class="description">
+                    You can update your personal information, upload a profile picture, and review your account details
+                    here.
+                    Please make sure to click "Save Changes" after editing.
+                </p>
 
-                        <!-- Success/Error Messages -->
-                        <?php if ($error): ?>
-                            <p class="alert alert-danger"><?= $error ?></p>
-                        <?php endif; ?>
-                        <?php if ($success): ?>
-                            <p class="alert alert-success"><?= $success ?></p>
-                        <?php endif; ?>
+                <!-- Success/Error Messages -->
+                <?php if ($error): ?>
+                <p class="alert alert-danger"><?= $error ?></p>
+                <?php endif; ?>
+                <?php if ($success): ?>
+                <p class="alert alert-success"><?= $success ?></p>
+                <?php endif; ?>
 
-                        <!-- Navigation Tabs -->
-                        <div class="tabs">
-                            <span class="tab active" data-tab="profile">Edit Profile</span>
-                            <span class="tab" data-tab="preferences">Preferences</span>
-                            <span class="tab" data-tab="security">Security</span>
-                        </div>
+                <!-- Navigation Tabs -->
+                <div class="tabs">
+                    <span class="tab active" data-tab="profile">Edit Profile</span>
+                    <span class="tab" data-tab="preferences">Preferences</span>
+                    <span class="tab" data-tab="security">Security</span>
+                </div>
 
-                        <!-- Profile Content -->
-                        <div class="tab-content active" id="profile-content">
-                            <!-- Profile Picture Section -->
-                            <div class="profile-picture-section">
-                                <img src="<?= $profilePic ?>" alt="Profile Picture" class="profile-picture" data-toggle="modal">
-                                <form action="upload_picture.php" method="POST" enctype="multipart/form-data">
-                                    <label>Upload Profile Picture:</label>
-                                    <input type="file" name="profile_picture" accept="image/*" required>
-                                    <button type="submit" class="upload-btn">Upload</button>
-                                </form>
-                            </div>
+                <!-- Profile Content -->
+                <div class="tab-content active" id="profile-content">
+                    <!-- Profile Picture Section -->
+                    <div class="profile-picture-section">
+                        <img src="<?= $profilePic ?>" alt="Profile Picture" class="profile-picture" data-toggle="modal">
+                        <form action="upload_picture.php" method="POST" enctype="multipart/form-data">
+                            <label>Upload Profile Picture:</label>
+                            <input type="file" name="profile_picture" accept="image/*" required>
+                            <button type="submit" class="upload-btn">Upload</button>
+                        </form>
+                    </div>
 
 
-                            <!-- Image Modal -->
-                            <div id="imageModal" class="modal">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <span class="close">&times;</span>
-                                            <button id="backButton">Back</button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <img src="<?= $profilePic ?>" alt="Profile Picture" class="img-fluid">
-                                        </div>
-                                    </div>
+                    <!-- Image Modal -->
+                    <div id="imageModal" class="modal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <span class="close">&times;</span>
+                                    <button id="backButton">Back</button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="<?= $profilePic ?>" alt="Profile Picture" class="img-fluid">
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
-                            <!-- Profile Form -->
-                            <form id="profileForm" method="POST">
-                                <input type="hidden" name="action" value="update_profile">
-                                <div class="profile-grid">
-                                    <!-- Read-Only -->
-                                    <div><label>Account Number</label><input type="text" value="<?= htmlspecialchars($user['account_number']) ?>" disabled></div>
-                                    <div><label>Password</label><input type="password" value="********" disabled></div>
+                    <!-- Profile Form -->
+                    <form id="profileForm" method="POST">
+                        <input type="hidden" name="action" value="update_profile">
+                        <div class="profile-grid">
+                            <!-- Read-Only -->
+                            <div><label>Account Number</label><input type="text"
+                                    value="<?= htmlspecialchars($user['account_number']) ?>" disabled></div>
+                            <div><label>Password</label><input type="password" value="********" disabled></div>
 
-                                    <!-- Editable -->
-                                    <div><label>Full Name</label><input type="text" name="full_name" value="<?= htmlspecialchars($user['full_name']) ?>" disabled></div>
-                                    <div><label>Email</label><input type="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" disabled></div>
-                                    <div><label>Age</label><input type="number" name="age" value="<?= htmlspecialchars($user['age']) ?>" disabled></div>
-                                    <div><label>Birth Year</label><input type="number" name="birth_year" value="<?= htmlspecialchars($user['birth_year']) ?>" disabled></div>
-                                    <div><label>Phone</label><input type="text" name="phone" value="<?= htmlspecialchars($user['phone']) ?>" disabled></div>
-                                    <div><label>Occupation</label><input type="text" name="occupation" value="<?= htmlspecialchars($user['occupation']) ?>" disabled></div>
-                                    <div><label>Account Status</label><input type="text" value="<?= htmlspecialchars($user['status']) ?>" disabled></div>
-                                    <div class="full-width"><label>Address</label><textarea name="address" disabled><?= htmlspecialchars($user['address']) ?></textarea></div>
-                                </div>
-
-                                <!-- Action Buttons -->
-                                <div class="form-actions">
-                                    <button type="button" id="editProfileBtn">Edit Profile</button>
-                                    <button type="submit" id="saveProfileBtn" style="display: none;">Save Changes</button>
-                                </div>
-                            </form>
+                            <!-- Editable -->
+                            <div><label>Full Name</label><input type="text" name="full_name"
+                                    value="<?= htmlspecialchars($user['full_name']) ?>" disabled></div>
+                            <div><label>Email</label><input type="email" name="email"
+                                    value="<?= htmlspecialchars($user['email']) ?>" disabled></div>
+                            <div><label>Age</label><input type="number" name="age"
+                                    value="<?= htmlspecialchars($user['age']) ?>" disabled></div>
+                            <div><label>Birth Year</label><input type="number" name="birth_year"
+                                    value="<?= htmlspecialchars($user['birth_year']) ?>" disabled></div>
+                            <div><label>Phone</label><input type="text" name="phone"
+                                    value="<?= htmlspecialchars($user['phone']) ?>" disabled></div>
+                            <div><label>Occupation</label><input type="text" name="occupation"
+                                    value="<?= htmlspecialchars($user['occupation']) ?>" disabled></div>
+                            <div><label>Account Status</label><input type="text"
+                                    value="<?= htmlspecialchars($user['status']) ?>" disabled></div>
+                            <div class="full-width"><label>Address</label><textarea name="address"
+                                    disabled><?= htmlspecialchars($user['address']) ?></textarea></div>
                         </div>
 
-                        <!-- Preferences Content -->
-                        <div class="tab-content" id="preferences-content">
-                            <!-- Add preferences content here later -->
-                            <p>Preferences settings coming soon...</p>
+                        <!-- Action Buttons -->
+                        <div class="form-actions">
+                            <button type="button" id="editProfileBtn">Edit Profile</button>
+                            <button type="submit" id="saveProfileBtn" style="display: none;">Save Changes</button>
                         </div>
+                    </form>
+                </div>
 
-                        <!-- Security Content -->
-                        <div class="tab-content" id="security-content">
-                            <div class="security-section">
-                                <h3>Change Password</h3>
-                                <p class="description">Update your password to keep your account secure. Make sure to use a strong password that's at least 8 characters long.</p>
-                                
-                                <form id="passwordForm" method="POST" class="security-form">
-                                    <input type="hidden" name="action" value="change_password">
-                                    <input type="hidden" name="password_token" value="<?= htmlspecialchars($password_token) ?>">
-                                    <div class="form-group">
-                                        <label for="current_password">Current Password</label>
-                                        <input type="password" id="current_password" name="current_password" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="new_password">New Password</label>
-                                        <input type="password" id="new_password" name="new_password" required>
-                                        <small class="form-text">Password must be at least 8 characters long</small>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="confirm_password">Confirm New Password</label>
-                                        <input type="password" id="confirm_password" name="confirm_password" required>
-                                    </div>
-                                    <div class="form-actions">
-                                        <button type="submit" class="btn-change-password">Change Password</button>
-                                    </div>
-                                </form>
+                <!-- Preferences Content -->
+                <div class="tab-content" id="preferences-content">
+                    <!-- Add preferences content here later -->
+                    <p>Preferences settings coming soon...</p>
+                </div>
+
+                <!-- Security Content -->
+                <div class="tab-content" id="security-content">
+                    <div class="security-section">
+                        <h3>Change Password</h3>
+                        <p class="description">Update your password to keep your account secure. Make sure to use a
+                            strong password that's at least 8 characters long.</p>
+
+                        <form id="passwordForm" method="POST" class="security-form">
+                            <input type="hidden" name="action" value="change_password">
+                            <input type="hidden" name="password_token" value="<?= htmlspecialchars($password_token) ?>">
+                            <div class="form-group">
+                                <label for="current_password">Current Password</label>
+                                <input type="password" id="current_password" name="current_password" required>
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <label for="new_password">New Password</label>
+                                <input type="password" id="new_password" name="new_password" required>
+                                <small class="form-text">Password must be at least 8 characters long</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm_password">Confirm New Password</label>
+                                <input type="password" id="confirm_password" name="confirm_password" required>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-change-password">Change Password</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
-         </main>
+        </main>
     </div>
 
     <script>
     document.querySelectorAll('[data-toggle="modal"]').forEach(item => {
-    item.addEventListener('click', function() {
-        const modal = document.getElementById('imageModal');
-        modal.style.display = "block";
+        item.addEventListener('click', function() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = "block";
         });
     });
 
-        document.querySelector('.close').addEventListener('click', function() {
-            const modal = document.getElementById('imageModal');
+    document.querySelector('.close').addEventListener('click', function() {
+        const modal = document.getElementById('imageModal');
+        modal.style.display = "none";
+    });
+
+    document.getElementById('backButton').addEventListener('click', function() {
+        const modal = document.getElementById('imageModal');
+        modal.style.display = "none";
+    });
+
+    // Close modal when clicking outside of the modal
+    window.onclick = function(event) {
+        const modal = document.getElementById('imageModal');
+        if (event.target === modal) {
             modal.style.display = "none";
-        });
+        }
+    };
 
-        document.getElementById('backButton').addEventListener('click', function() {
-            const modal = document.getElementById('imageModal');
-            modal.style.display = "none";
-        });
-
-        // Close modal when clicking outside of the modal
-        window.onclick = function(event) {
-            const modal = document.getElementById('imageModal');
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        };
-
+    // Tab switching functionality
+    document.addEventListener('DOMContentLoaded', function() {
         // Tab switching functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Tab switching functionality
-            const tabs = document.querySelectorAll('.tab');
-            const contents = document.querySelectorAll('.tab-content');
+        const tabs = document.querySelectorAll('.tab');
+        const contents = document.querySelectorAll('.tab-content');
 
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    // Remove active class from all tabs and contents
-                    tabs.forEach(t => t.classList.remove('active'));
-                    contents.forEach(c => c.classList.remove('active'));
-                    
-                    // Add active class to clicked tab
-                    tab.classList.add('active');
-                    
-                    // Show selected content
-                    const contentId = tab.getAttribute('data-tab') + '-content';
-                    const content = document.getElementById(contentId);
-                    if (content) {
-                        content.classList.add('active');
-                    }
-                });
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+
+                // Add active class to clicked tab
+                tab.classList.add('active');
+
+                // Show selected content
+                const contentId = tab.getAttribute('data-tab') + '-content';
+                const content = document.getElementById(contentId);
+                if (content) {
+                    content.classList.add('active');
+                }
             });
-
-            // Profile edit functionality
-            const editBtn = document.getElementById('editProfileBtn');
-            const saveBtn = document.getElementById('saveProfileBtn');
-            const form = document.getElementById('profileForm');
-            const inputs = form.querySelectorAll('input[type="text"], input[type="email"], input[type="number"], textarea');
-
-            if (editBtn && saveBtn) {
-                editBtn.addEventListener('click', () => {
-                    inputs.forEach(input => {
-                        if (input.name) { // Only enable inputs with name attribute
-                            input.disabled = false;
-                        }
-                    });
-                    editBtn.style.display = 'none';
-                    saveBtn.style.display = 'inline-block';
-                });
-            }
-
-            // Password validation
-            const passwordForm = document.getElementById('passwordForm');
-            if (passwordForm) {
-                passwordForm.addEventListener('submit', function(e) {
-                    const newPass = document.getElementById('new_password').value;
-                    const confirmPass = document.getElementById('confirm_password').value;
-
-                    if (newPass !== confirmPass) {
-                        e.preventDefault();
-                        alert('New passwords do not match!');
-                        return false;
-                    }
-
-                    if (newPass.length < 8) {
-                        e.preventDefault();
-                        alert('Password must be at least 8 characters long!');
-                        return false;
-                    }
-                });
-            }
         });
+
+        // Profile edit functionality
+        const editBtn = document.getElementById('editProfileBtn');
+        const saveBtn = document.getElementById('saveProfileBtn');
+        const form = document.getElementById('profileForm');
+        const inputs = form.querySelectorAll(
+            'input[type="text"], input[type="email"], input[type="number"], textarea');
+
+        if (editBtn && saveBtn) {
+            editBtn.addEventListener('click', () => {
+                inputs.forEach(input => {
+                    if (input.name) { // Only enable inputs with name attribute
+                        input.disabled = false;
+                    }
+                });
+                editBtn.style.display = 'none';
+                saveBtn.style.display = 'inline-block';
+            });
+        }
+
+        // Password validation
+        const passwordForm = document.getElementById('passwordForm');
+        if (passwordForm) {
+            passwordForm.addEventListener('submit', function(e) {
+                const newPass = document.getElementById('new_password').value;
+                const confirmPass = document.getElementById('confirm_password').value;
+
+                if (newPass !== confirmPass) {
+                    e.preventDefault();
+                    alert('New passwords do not match!');
+                    return false;
+                }
+
+                if (newPass.length < 8) {
+                    e.preventDefault();
+                    alert('Password must be at least 8 characters long!');
+                    return false;
+                }
+            });
+        }
+    });
     </script>
     <script src="../assets/js/session.js"></script>
 </body>
+
 </html>

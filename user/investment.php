@@ -35,9 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['plan_id'], $_POST['am
     if (!$plan) {
         $error = "Invalid investment plan.";
     } elseif ($amount < $plan['min_amount']) {
-        $error = "Amount must be at least ₱" . number_format($plan['min_amount'], 2);
+        $error = "Amount must be at least ₹" . number_format($plan['min_amount'], 2);
     } elseif ($amount > $plan['max_amount']) {
-        $error = "Amount cannot exceed ₱" . number_format($plan['max_amount'], 2);
+        $error = "Amount cannot exceed ₹" . number_format($plan['max_amount'], 2);
     } elseif ($amount > $balance) {
         $error = "Insufficient balance.";
     } else {
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['plan_id'], $_POST['am
             $stmt->execute([$accountId, -$amount, 'Investment in ' . $plan['plan_name']]);
 
             $pdo->commit();
-            $_SESSION['success'] = "Investment of ₱" . number_format($amount, 2) . " placed in " . htmlspecialchars($plan['plan_name']) . "!";
+            $_SESSION['success'] = "Investment of ₹" . number_format($amount, 2) . " placed in " . htmlspecialchars($plan['plan_name']) . "!";
             header("Location: investment.php");
             exit();
         } catch (Exception $e) {
@@ -106,10 +106,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['withdraw_investment_i
             $accountId = $account['account_id'];
 
             $stmt = $pdo->prepare('INSERT INTO transactions (account_id, type, amount, description, created_at) VALUES (?, \'withdrawal_matured_investment\', ?, ?, NOW())');
-            $stmt->execute([$accountId, $totalReturn, 'Withdrawal of matured investment: ₱' . number_format($totalReturn, 2)]);
+            $stmt->execute([$accountId, $totalReturn, 'Withdrawal of matured investment: ₹' . number_format($totalReturn, 2)]);
 
             $pdo->commit();
-            $_SESSION['success'] = "Successfully withdrawn ₱" . number_format($totalReturn, 2) . " from matured investment.";
+            $_SESSION['success'] = "Successfully withdrawn ₹" . number_format($totalReturn, 2) . " from matured investment.";
             header("Location: investment.php");
             exit();
         } catch (Exception $e) {
