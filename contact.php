@@ -401,7 +401,6 @@ if (isLoggedIn() && isAdmin()) {
 
                 <div class="auth-buttons" id="auth-buttons">
                     <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="dashboard.php">Dashboard</a>
                     <a href="logout.php">Logout</a>
                     <?php else: ?>
                     <a href="login.php">Login</a>
@@ -472,7 +471,7 @@ if (isLoggedIn() && isAdmin()) {
             </div>
             <hr style="border: none; height: 1px; background-color: rgba(255, 255, 255, 0.1); margin: 20px 0;" />
             <div class="copyright">
-                &copy; 2025 Nexus Bank. All rights reserved.
+                &copy; 2026 Nexus Bank. GitHub-RajkumarBM30.
             </div>
             <hr style="border: none; height: 1px; background-color: rgba(255, 255, 255, 0.1); margin: 20px 0 0 0;" />
         </div>

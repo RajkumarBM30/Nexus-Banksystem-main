@@ -478,7 +478,7 @@ require_once __DIR__ . '/includes/functions.php';
 
                 <div class="auth-buttons" id="auth-buttons">
                     <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="dashboard.php">Dashboard</a>
+                    <!-- <a href="dashboard.php">Dashboard</a> -->
                     <a href="logout.php">Logout</a>
                     <?php else: ?>
                     <a href="login.php">Login</a>
@@ -567,7 +567,7 @@ require_once __DIR__ . '/includes/functions.php';
                 </div>
             </div>
             <div class="copyright">
-                &copy; 2025 Nexus Bank. All rights reserved.
+                &copy; 2026 Nexus Bank. GitHub-RajkumarBM30.
             </div>
         </div>
     </footer>
