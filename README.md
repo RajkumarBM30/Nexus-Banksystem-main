@@ -48,7 +48,7 @@ It provides both **clients** and **administrators** with tools for managing fina
 - Visual Studio Code
 - XAMPP / WAMP (local development)
 - Git & GitHub (version control)
-- Hostinger (deployment)
+- Render (deployment)
 - PHPMailer (OTP, email verification)
 - Adobe Photoshop / Illustrator, Canva (UI design assets)
 
@@ -77,7 +77,6 @@ It provides both **clients** and **administrators** with tools for managing fina
 
 ### 1️⃣ Clone Repository
 ```bash
-git clone https://github.com/PaulPaolo2929/Nexus-Banksystem.git
+git clone https://github.com/RajkumarBM30/Nexus-Banksystem-main.git
 
-https://nexusbank.ccs-octa.com/login.php
-https://nexusbank.ccs-octa.com/services.php
+
