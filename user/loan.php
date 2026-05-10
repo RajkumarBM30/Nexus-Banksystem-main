@@ -312,6 +312,7 @@ $totalOverdue = $overdue['total_overdue'];
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -341,75 +342,50 @@ $totalOverdue = $overdue['total_overdue'];
             <hr>
             <nav>
                 <a href="dashboard.php" class="btn">
-                    <img 
-                        src="../assets/images/inactive-dashboard.png" 
-                        alt="dashboard-logo" 
-                        class="nav-icon"
+                    <img src="../assets/images/inactive-dashboard.png" alt="dashboard-logo" class="nav-icon"
                         data-default="../assets/images/inactive-dashboard.png"
-                        data-hover="../assets/images/hover-dashboard.png"> 
+                        data-hover="../assets/images/hover-dashboard.png">
                     Dashboard
                 </a>
                 <a href="deposit.php" class="btn">
-                    <img 
-                        src="../assets/images/inactive-deposit.png" 
-                        alt="deposit-logo" 
-                        class="nav-icon"
+                    <img src="../assets/images/inactive-deposit.png" alt="deposit-logo" class="nav-icon"
                         data-default="../assets/images/inactive-deposit.png"
-                        data-hover="../assets/images/hover-deposit.png"> 
+                        data-hover="../assets/images/hover-deposit.png">
                     Deposit
                 </a>
                 <a href="withdraw.php" class="btn">
-                    <img 
-                        src="../assets/images/inactive-withdraw.png" 
-                        alt="withdraw-logo" 
-                        class="nav-icon"
+                    <img src="../assets/images/inactive-withdraw.png" alt="withdraw-logo" class="nav-icon"
                         data-default="../assets/images/inactive-withdraw.png"
-                        data-hover="../assets/images/hover-withdraw.png"> 
+                        data-hover="../assets/images/hover-withdraw.png">
                     Withdraw
                 </a>
                 <a href="transfer.php" class="btn">
-                    <img 
-                        src="../assets/images/inactive-transfer.png" 
-                        alt="transfer-logo" 
-                        class="nav-icon"
+                    <img src="../assets/images/inactive-transfer.png" alt="transfer-logo" class="nav-icon"
                         data-default="../assets/images/inactive-transfer.png"
-                        data-hover="../assets/images/hover-transfer.png"> 
+                        data-hover="../assets/images/hover-transfer.png">
                     Transfer
                 </a>
                 <a href="transactions.php" class="btn">
-                    <img 
-                        src="../assets/images/inactive-transaction.png" 
-                        alt="transactions-logo" 
-                        class="nav-icon"
+                    <img src="../assets/images/inactive-transaction.png" alt="transactions-logo" class="nav-icon"
                         data-default="../assets/images/inactive-transaction.png"
-                        data-hover="../assets/images/hover-transaction.png"> 
+                        data-hover="../assets/images/hover-transaction.png">
                     Transactions
                 </a>
                 <a href="investment.php" class="btn">
-                    <img 
-                        src="../assets/images/inactive-investment.png" 
-                        alt="investment-logo" 
-                        class="nav-icon"
+                    <img src="../assets/images/inactive-investment.png" alt="investment-logo" class="nav-icon"
                         data-default="../assets/images/inactive-investment.png"
-                        data-hover="../assets/images/hover-investment.png"> 
+                        data-hover="../assets/images/hover-investment.png">
                     Investment
                 </a>
                 <a href="loan.php" class="btn dash-text">
-                    <img 
-                        src="../assets/images/hover-loans.png" 
-                        alt="loans-logo" 
-                        class="nav-icon"
-                        data-default="../assets/images/hover-loans.png"
-                        data-hover="../assets/images/hover-loans.png"> 
+                    <img src="../assets/images/hover-loans.png" alt="loans-logo" class="nav-icon"
+                        data-default="../assets/images/hover-loans.png" data-hover="../assets/images/hover-loans.png">
                     Loans
                 </a>
                 <a href="profile.php" class="btn">
-                    <img 
-                        src="../assets/images/inactive-profile.png" 
-                        alt="profile-logo" 
-                        class="nav-icon"
+                    <img src="../assets/images/inactive-profile.png" alt="profile-logo" class="nav-icon"
                         data-default="../assets/images/inactive-profile.png"
-                        data-hover="../assets/images/hover-profile.png"> 
+                        data-hover="../assets/images/hover-profile.png">
                     Settings
                 </a>
             </nav>
@@ -440,19 +416,19 @@ $totalOverdue = $overdue['total_overdue'];
                     <h2>Apply for a Loan</h2>
 
                     <?php if ($error): ?>
-                        <div class="alert alert-danger"><?= $error ?></div>
+                    <div class="alert alert-danger"><?= $error ?></div>
                     <?php endif; ?>
 
                     <?php if ($success): ?>
-                        <div class="alert alert-success"><?= $success ?></div>
+                    <div class="alert alert-success"><?= $success ?></div>
                     <?php endif; ?>
 
                     <form method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
                         <div class="form-group">
-                            <label>Loan Amount (₱)</label>
+                            <label>Loan Amount (₹)</label>
                             <input type="number" name="amount" min="100" max="50000" step="100" required>
-                            <small class="form-text">Minimum: ₱100 | Maximum: ₱50,000</small>
+                            <small class="form-text">Minimum: ₹100 | Maximum: ₹50,000</small>
                         </div>
                         <div class="form-group">
                             <label>Loan Term (months)</label>
@@ -463,14 +439,15 @@ $totalOverdue = $overdue['total_overdue'];
                             <label>Purpose</label>
                             <textarea name="purpose" required></textarea>
                         </div>
-                         <div class="form-group">
+                        <div class="form-group">
                             <label for="id_selfie">Upload Selfie with ID (JPG, PNG)</label>
                             <input type="file" name="id_selfie" id="id_selfie" accept=".jpg,.jpeg,.png" required>
                             <small class="form-text">Upload a clear photo of yourself holding your ID.</small>
                         </div>
                         <div class="form-group">
                             <label for="id_document">Upload ID Document (JPG, PNG, PDF)</label>
-                            <input type="file" name="id_document" id="id_document" accept=".jpg,.jpeg,.png,.pdf" required>
+                            <input type="file" name="id_document" id="id_document" accept=".jpg,.jpeg,.png,.pdf"
+                                required>
                             <small class="form-text">Upload a clear photo or scan of your valid ID document.</small>
                         </div>
                         <button type="submit" class="btn11">Apply for Loan</button>
@@ -481,53 +458,56 @@ $totalOverdue = $overdue['total_overdue'];
                 <div class="Summary">
                     <div style="width: 100%;">
                         <h2>Quick Summary</h2>
-                                
-                                <ul>
-                                    <li>
-                                    Total Loan Balance:
-                                        <strong>₱<?= number_format($totalBalance, 2) ?></strong>
-                                    </li>
-                                    <li>
-                                        Active Loans:
-                                        <strong><?= $activeLoans ?></strong>
-                                    </li>
-                                    <li>
-                                    Next Payment:
-                                        <?php if ($nextPaymentAmount !== null && $nextPaymentDate !== null): ?>
-                                            <strong>₱<?= number_format($nextPaymentAmount, 2) ?> due on <?= $nextPaymentDate ?></strong>
-                                        <?php else: ?>
-                                            <strong>N/A</strong>
-                                        <?php endif; ?>
-                                    </li>
-                                    <li>
-                                    Last Loan Taken:
-                                        <?php if ($lastLoan): ?>
-                                            <strong>₱<?= number_format($lastLoan['amount'], 2) ?> on <?= date('M j, Y', strtotime($lastLoan['created_at'])) ?></strong>
-                                        <?php else: ?>
-                                            <strong>N/A</strong>
-                                        <?php endif; ?>
-                                    </li>
-                                    <li>
-                                        Pending Loans:
-                                        <strong>₱<?= number_format($totalPending, 2) ?></strong>    
-                                    </li>
-                                    <li>
-                                       Overdue Payments:
-                                        <strong> ₱<?= number_format($totalOverdue, 2) ?></strong>
-                                    </li>
 
-                                    <li>
-                                        Total Applications:
-                                    <strong>  <?= $totalApps ?> 
+                        <ul>
+                            <li>
+                                Total Loan Balance:
+                                <strong>₹<?= number_format($totalBalance, 2) ?></strong>
+                            </li>
+                            <li>
+                                Active Loans:
+                                <strong><?= $activeLoans ?></strong>
+                            </li>
+                            <li>
+                                Next Payment:
+                                <?php if ($nextPaymentAmount !== null && $nextPaymentDate !== null): ?>
+                                <strong>₹<?= number_format($nextPaymentAmount, 2) ?> due on
+                                    <?= $nextPaymentDate ?></strong>
+                                <?php else: ?>
+                                <strong>N/A</strong>
+                                <?php endif; ?>
+                            </li>
+                            <li>
+                                Last Loan Taken:
+                                <?php if ($lastLoan): ?>
+                                <strong>₹<?= number_format($lastLoan['amount'], 2) ?> on
+                                    <?= date('M j, Y', strtotime($lastLoan['created_at'])) ?></strong>
+                                <?php else: ?>
+                                <strong>N/A</strong>
+                                <?php endif; ?>
+                            </li>
+                            <li>
+                                Pending Loans:
+                                <strong>₹<?= number_format($totalPending, 2) ?></strong>
+                            </li>
+                            <li>
+                                Overdue Payments:
+                                <strong> ₹<?= number_format($totalOverdue, 2) ?></strong>
+                            </li>
+
+                            <li>
+                                Total Applications:
+                                <strong> <?= $totalApps ?>
                                     (<?= $approvedCount ?> approved, <?= $rejectedCount ?> rejected)</strong>
-                                  
-                                    </li>
+
+                            </li>
 
 
-                                </ul>
+                        </ul>
 
-                                 <button class="btn_sum" href="loan-payment"> <a  href="loan-payment.php">Make a Loan Payment</a> </button>
-                        
+                        <button class="btn_sum" href="loan-payment"> <a href="loan-payment.php">Make a Loan Payment</a>
+                        </button>
+
                     </div>
                 </div>
                 <!-- ────────────────────────────────── END QUICK SUMMARY ────────────────────────────── -->
@@ -538,40 +518,43 @@ $totalOverdue = $overdue['total_overdue'];
                 <h2>Your Loans</h2>
 
                 <?php if (empty($loans)): ?>
-                    <p>You have no loans at the moment.</p>
+                <p>You have no loans at the moment.</p>
                 <?php else: ?>
-                    <?php foreach ($loans as $loan): ?>
-                        <div style="
+                <?php foreach ($loans as $loan): ?>
+                <div style="
                             background:white;
                             padding:15px;
                             margin:10px 0;
                             border-radius:10px;
                             box-shadow:0 2px 5px rgba(0,0,0,0.1);
                        ">
-                    
-                           <h3>₱<?= number_format($loan['amount'], 2) ?></h3>
-                    
-                           <p><b>Term:</b> <?= $loan['term_months'] ?> months</p>
-                    
-                           <p><b>Purpose:</b> <?= htmlspecialchars($loan['purpose']) ?></p>
-                    
-                           <p>
-                                <b>Status:</b> 
-                               <span style="
+
+                    <h3>₹<?= number_format($loan['amount'], 2) ?></h3>
+
+                    <p><b>Term:</b> <?= $loan['term_months'] ?> months</p>
+
+                    <p><b>Purpose:</b> <?= htmlspecialchars($loan['purpose']) ?></p>
+
+                    <p>
+                        <b>Status:</b>
+                        <span style="
+                                    position: relative;
+                                    top: 35%;
+                                    left: 80%;
                                     padding:5px 10px;
                                     border-radius:5px;
                                     color:white;
-                                   background:
+                                    background:
                                    <?= $loan['status'] == 'pending' ? 'orange' : ($loan['status'] == 'approved' ? 'green' : 'red') ?>
                                   ">
-                                   <?= strtoupper($loan['status']) ?>
-                                </span>
-                            </p>
-                    
-                            <p><b>Applied On:</b> <?= date('M j, Y', strtotime($loan['created_at'])) ?></p>
-                    
-                        </div>
-                    <?php endforeach; ?>
+                            <?= strtoupper($loan['status']) ?>
+                        </span>
+                    </p>
+
+                    <p><b>Applied On:</b> <?= date('M j, Y', strtotime($loan['created_at'])) ?></p>
+
+                </div>
+                <?php endforeach; ?>
                 <?php endif; ?>
             </div>
             <!-- ────────────────────────────────── END YOUR LOANS LIST ─────────────────────────── -->
@@ -581,4 +564,5 @@ $totalOverdue = $overdue['total_overdue'];
 
     <script src="../assets/js/session.js"></script>
 </body>
+
 </html>

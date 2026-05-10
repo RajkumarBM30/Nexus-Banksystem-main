@@ -311,7 +311,7 @@ html, body {
 /* Adjust spacing for select and file inputs */
 .form-field select[name="id_type"],
 .form-field input[type="file"][name="id_file"] {
-    margin-top: 0; /* Remove any potential top margin */
+    margin-top: 20px; /* Remove any potential top margin */
 }
 
 .btn-submit {
@@ -479,6 +479,9 @@ body, html {
 
 .form-field{
     flex:1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .form-field input,
@@ -491,11 +494,11 @@ body, html {
 
     border-radius:12px;
 
-    padding:0 18px;
+    padding:18px 18px;
 
     font-size:15px;
 
-    background:#fff;
+    background:#ffffff;
 
     transition:0.3s;
 }

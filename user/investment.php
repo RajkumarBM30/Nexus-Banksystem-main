@@ -176,219 +176,194 @@ $profilePic = $user['profile_picture'] ? '../uploads/' . $user['profile_picture'
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>SecureBank - Investments</title>
     <link rel="stylesheet" href="../assets/css/investment.css">
     <link rel="stylesheet" href="../assets/css/main.css">
-    
+
     <!-- NAVIGATION EFFECTS -->
     <script src="../assets/js/navhover.js"></script>
     <script src="../assets/js/sidebar.js"></script>
 </head>
+
 <body>
     <div class="wrapper">
 
-            <aside class="sidebar"> 
-                
-                <div class="Logos-cont">
+        <aside class="sidebar">
+
+            <div class="Logos-cont">
                 <img src="../assets/images/Logo-color.png" alt="SecureBank Logo" class="logo-container">
-                </div>
- <hr>
-                <div class="profile-container">
-                    <img src="<?= $profilePic ?>" alt="Profile Picture" class="img-fluid">
-                    <h5><?= htmlspecialchars($user['full_name']) ?></h5>
-                    <p><?= htmlspecialchars($user['account_number']) ?></p>
-                </div>
- <hr>
-                    <nav>
-                    <a href="dashboard.php" class="btn">
-                        <img 
-                        src="../assets/images/inactive-dashboard.png" 
-                        alt="dashboard-logo" 
-                        class="nav-icon"
+            </div>
+            <hr>
+            <div class="profile-container">
+                <img src="<?= $profilePic ?>" alt="Profile Picture" class="img-fluid">
+                <h5><?= htmlspecialchars($user['full_name']) ?></h5>
+                <p><?= htmlspecialchars($user['account_number']) ?></p>
+            </div>
+            <hr>
+            <nav>
+                <a href="dashboard.php" class="btn">
+                    <img src="../assets/images/inactive-dashboard.png" alt="dashboard-logo" class="nav-icon"
                         data-default="../assets/images/inactive-dashboard.png"
-                        data-hover="../assets/images/hover-dashboard.png"
-                        > 
-                        Dashboard
-                    </a>
+                        data-hover="../assets/images/hover-dashboard.png">
+                    Dashboard
+                </a>
 
-                    <a href="deposit.php" class="btn">
-                        <img 
-                        src="../assets/images/inactive-deposit.png" 
-                        alt="deposit-logo" 
-                        class="nav-icon"
+                <a href="deposit.php" class="btn">
+                    <img src="../assets/images/inactive-deposit.png" alt="deposit-logo" class="nav-icon"
                         data-default="../assets/images/inactive-deposit.png"
-                        data-hover="../assets/images/hover-deposit.png"
-                        > 
-                        Deposit
-                    </a>
+                        data-hover="../assets/images/hover-deposit.png">
+                    Deposit
+                </a>
 
-                    <a href="withdraw.php" class="btn">
-                        <img 
-                        src="../assets/images/inactive-withdraw.png" 
-                        alt="withdraw-logo" 
-                        class="nav-icon"
+                <a href="withdraw.php" class="btn">
+                    <img src="../assets/images/inactive-withdraw.png" alt="withdraw-logo" class="nav-icon"
                         data-default="../assets/images/inactive-withdraw.png"
-                        data-hover="../assets/images/hover-withdraw.png"
-                        > 
-                        Withdraw
-                    </a>
+                        data-hover="../assets/images/hover-withdraw.png">
+                    Withdraw
+                </a>
 
-                    <a href="transfer.php" class="btn">
-                        <img 
-                        src="../assets/images/inactive-transfer.png" 
-                        alt="transfer-logo" 
-                        class="nav-icon"
+                <a href="transfer.php" class="btn">
+                    <img src="../assets/images/inactive-transfer.png" alt="transfer-logo" class="nav-icon"
                         data-default="../assets/images/inactive-transfer.png"
-                        data-hover="../assets/images/hover-transfer.png"
-                        > 
-                        Transfer
-                    </a>
+                        data-hover="../assets/images/hover-transfer.png">
+                    Transfer
+                </a>
 
-                    <a href="transactions.php" class="btn">
-                        <img 
-                        src="../assets/images/inactive-transaction.png" 
-                        alt="transactions-logo" 
-                        class="nav-icon"
+                <a href="transactions.php" class="btn">
+                    <img src="../assets/images/inactive-transaction.png" alt="transactions-logo" class="nav-icon"
                         data-default="../assets/images/inactive-transaction.png"
-                        data-hover="../assets/images/hover-transaction.png"
-                        > 
-                        Transactions
-                    </a>
+                        data-hover="../assets/images/hover-transaction.png">
+                    Transactions
+                </a>
 
-                    <a href="investment.php" class="btn dash-text">
-                        <img 
-                        src="../assets/images/hover-investment.png" 
-                        alt="investment-logo" 
-                        class="nav-icon"
+                <a href="investment.php" class="btn dash-text">
+                    <img src="../assets/images/hover-investment.png" alt="investment-logo" class="nav-icon"
                         data-default="../assets/images/hover-investment.png"
-                        data-hover="../assets/images/hover-investment.png"
-                        > 
-                        Investment
-                    </a>
+                        data-hover="../assets/images/hover-investment.png">
+                    Investment
+                </a>
 
-                    <a href="loan.php" class="btn">
-                        <img 
-                        src="../assets/images/inactive-loans.png" 
-                        alt="loans-logo" 
-                        class="nav-icon"
+                <a href="loan.php" class="btn">
+                    <img src="../assets/images/inactive-loans.png" alt="loans-logo" class="nav-icon"
                         data-default="../assets/images/inactive-loans.png"
-                        data-hover="../assets/images/hover-loans.png"
-                        > 
-                        Loans
-                    </a>
+                        data-hover="../assets/images/hover-loans.png">
+                    Loans
+                </a>
 
-                    <a href="profile.php" class="btn">
-                        <img 
-                        src="../assets/images/inactive-profile.png" 
-                        alt="loans-logo" 
-                        class="nav-icon"
+                <a href="profile.php" class="btn">
+                    <img src="../assets/images/inactive-profile.png" alt="loans-logo" class="nav-icon"
                         data-default="../assets/images/inactive-profile.png"
-                        data-hover="../assets/images/inactive-profile"
-                        > 
-                        Settings
-                    </a>
-                </nav>       
- <hr>
-                    <div class="logout-cont">
-                        <a href="../logout.php" class="logout">Logout</a>
-                    </div>              
-            </aside>
+                        data-hover="../assets/images/inactive-profile">
+                    Settings
+                </a>
+            </nav>
+            <hr>
+            <div class="logout-cont">
+                <a href="../logout.php" class="logout">Logout</a>
+            </div>
+        </aside>
 
-            <main class="container">
-                <header>
-                    <h1>Investments</h1>
-                    <button class="hamburger">&#9776;</button> <!-- Hamburger icon -->
-                </header>
+        <main class="container">
+            <header>
+                <h1>Investments</h1>
+                <button class="hamburger">&#9776;</button> <!-- Hamburger icon -->
+            </header>
 
-                <div class="content">
+            <div class="content">
 
-                    <?php if ($error): ?>
-                        <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
-                    <?php endif; ?>
+                <?php if ($error): ?>
+                <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+                <?php endif; ?>
 
-                    <?php if (isset($_SESSION['success'])): ?>
-                        <div class="alert alert-success"><?= $_SESSION['success'] ?></div>
-                        <?php unset($_SESSION['success']); ?>
-                    <?php endif; ?>
+                <?php if (isset($_SESSION['success'])): ?>
+                <div class="alert alert-success"><?= $_SESSION['success'] ?></div>
+                <?php unset($_SESSION['success']); ?>
+                <?php endif; ?>
 
-                    <h2>Make a New Investment</h2>
-                    <form method="post">
-                        <div class="form-group">
-                            <label for="plan_id">Select Investment Plan:</label>
-                            <select name="plan_id" id="plan_id" required>
-                                <option value="">-- Choose a Plan --</option>
-                                <?php foreach ($plans as $plan): ?>
-                                    <option value="<?= $plan['plan_id'] ?>">
-                                        <?= htmlspecialchars($plan['plan_name']) ?> - <?= $plan['interest_rate'] ?>% for <?= $plan['duration_months'] ?> months (Min: ₱<?= number_format($plan['min_amount'], 2) ?>)(Max: ₱<?= number_format($plan['max_amount'], 2) ?>)
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
+                <h2>Make a New Investment</h2>
+                <form method="post">
+                    <div class="form-group">
+                        <label for="plan_id">Select Investment Plan:</label>
+                        <select name="plan_id" id="plan_id" required>
+                            <option value="">-- Choose a Plan --</option>
+                            <?php foreach ($plans as $plan): ?>
+                            <option value="<?= $plan['plan_id'] ?>">
+                                <?= htmlspecialchars($plan['plan_name']) ?> - <?= $plan['interest_rate'] ?>% for
+                                <?= $plan['duration_months'] ?> months (Min:
+                                ₹<?= number_format($plan['min_amount'], 2) ?>)(Max:
+                                ₹<?= number_format($plan['max_amount'], 2) ?>)
+                            </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="amount">Investment Amount (₱):</label>
-                            <input type="number" name="amount" id="amount" step="0.01" required>
-                        </div>
+                    <div class="form-group">
+                        <label for="amount">Investment Amount (₹):</label>
+                        <input type="number" name="amount" id="amount" step="0.01" required>
+                    </div>
 
-                        <button type="submit" class="btn">Invest</button>
-                    </form>
+                    <button type="submit" class="btn">Invest</button>
+                </form>
 
-                    <h2>Your Investment History</h2>
-                    <?php if (empty($investments)): ?>
-                        <p>No investments yet.</p>
-                    <?php else: ?>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Plan</th>
-                                    <th>Amount</th>
-                                    <th>Interest</th>
-                                    <th>Duration</th>
-                                    <th>Start Date</th>
-                                    <th>Matured Date</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($investments as $inv): ?>
-                                    <tr>
-                                        <td><?= htmlspecialchars($inv['plan_name']) ?></td>
-                                        <td>₱<?= number_format($inv['amount'], 2) ?></td>
-                                        <td><?= $inv['interest_rate'] ?>%</td>
-                                        <td><?= $inv['duration_months'] ?> months</td>
-                                        <td><?= date('Y-m-d', strtotime($inv['created_at'])) ?></td>
-                                        <td><?= $inv['matured_at'] ? date('Y-m-d', strtotime($inv['matured_at'])) : 'N/A' ?></td>
-                                        <td>
-                                            <?php if ($inv['status'] === 'matured'): ?>
-                                                <span>Matured</span><br>
-                                                <?php if (empty($inv['withdrawn_at'])): ?>
-                                                    <form method="post">
-                                                        <input type="hidden" name="withdraw_investment_id" value="<?= $inv['investment_id'] ?>">
-                                                        <button type="submit" class="btn" style="margin-top: 5px;">Withdraw</button>
-                                                    </form>
-                                                <?php else: ?>
-                                                    <span>Withdrawn on <?= date('Y-m-d', strtotime($inv['withdrawn_at'])) ?></span>
-                                                <?php endif; ?>
-                                            <?php elseif ($inv['status'] === 'withdrawn'): ?>
-                                                <span>Withdrawn</span><br>
-                                                <?php if (!empty($inv['withdrawn_at'])): ?>
-                                                    <span>on <?= date('Y-m-d', strtotime($inv['withdrawn_at'])) ?></span>
-                                                <?php endif; ?>
-                                            <?php else: ?>
-                                                <span>Active</span>
-                                            <?php endif; ?>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    <?php endif; ?>
-                </div>
-            </main>
-        </div>
+                <h2>Your Investment History</h2>
+                <?php if (empty($investments)): ?>
+                <p>No investments yet.</p>
+                <?php else: ?>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Plan</th>
+                            <th>Amount</th>
+                            <th>Interest</th>
+                            <th>Duration</th>
+                            <th>Start Date</th>
+                            <th>Matured Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($investments as $inv): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($inv['plan_name']) ?></td>
+                            <td>₹<?= number_format($inv['amount'], 2) ?></td>
+                            <td><?= $inv['interest_rate'] ?>%</td>
+                            <td><?= $inv['duration_months'] ?> months</td>
+                            <td><?= date('Y-m-d', strtotime($inv['created_at'])) ?></td>
+                            <td><?= $inv['matured_at'] ? date('Y-m-d', strtotime($inv['matured_at'])) : 'N/A' ?></td>
+                            <td>
+                                <?php if ($inv['status'] === 'matured'): ?>
+                                <span>Matured</span><br>
+                                <?php if (empty($inv['withdrawn_at'])): ?>
+                                <form method="post">
+                                    <input type="hidden" name="withdraw_investment_id"
+                                        value="<?= $inv['investment_id'] ?>">
+                                    <button type="submit" class="btn" style="margin-top: 5px;">Withdraw</button>
+                                </form>
+                                <?php else: ?>
+                                <span>Withdrawn on <?= date('Y-m-d', strtotime($inv['withdrawn_at'])) ?></span>
+                                <?php endif; ?>
+                                <?php elseif ($inv['status'] === 'withdrawn'): ?>
+                                <span>Withdrawn</span><br>
+                                <?php if (!empty($inv['withdrawn_at'])): ?>
+                                <span>on <?= date('Y-m-d', strtotime($inv['withdrawn_at'])) ?></span>
+                                <?php endif; ?>
+                                <?php else: ?>
+                                <span>Active</span>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <?php endif; ?>
+            </div>
+        </main>
+    </div>
     </div>
     <script src="../assets/js/session.js"></script>
 </body>
+
 </html>

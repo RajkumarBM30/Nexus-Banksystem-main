@@ -367,7 +367,7 @@ require_once __DIR__ . '/includes/functions.php';
         <div class="container">
             <h2>Our Story</h2>
             <p>
-                Since 2019, Nexus Bank has been committed to providing trustworthy and innovative financial services.
+                Nexus Bank has been committed to providing trustworthy and innovative financial services.
                 Our mission is to empower individuals and businesses to achieve their financial goals through
                 personalized solutions,
                 cutting-edge technology, and a dedicated team of experts.
@@ -401,11 +401,11 @@ require_once __DIR__ . '/includes/functions.php';
             <div class="footer-grid">
                 <div class="footer-col">
                     <h3>Nexus Bank</h3>
-                    <p>Where money meets trust. Providing reliable banking services since 2019.</p>
+                    <p>Where money meets trust. Providing reliable banking services.</p>
                     <div class="contact-info"
                         style="color: var(--light-gray); font-size: 16px; margin-top: 20px; white-space: nowrap;">
-                        <p>📧 Email: Nexus-Banksystem@gmail.com</p>
-                        <p>📞 Phone: 09564282978</p>
+                        <p>📧 Email: rajkumar.bm0207@gmail.com</p>
+                        <p>📞 Phone: +916363159262</p>
                     </div>
                 </div>
                 <div class="footer-col">

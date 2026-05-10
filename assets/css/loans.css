@@ -339,11 +339,11 @@ textarea[name="purpose"]:focus {
 
 .content {
   flex: 1;
-  max-width: 50%;
+  max-width: 80%;
   display: flex;
   flex-direction: column;
   background: var(--main-color);
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(52, 60, 106, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -363,7 +363,7 @@ textarea[name="purpose"]:focus {
 
 .Summary {
   flex: 1;
-  max-width: 50%;
+  max-width: 36%;
   display: flex;
   flex-direction: column;
   background: var(--main-color);

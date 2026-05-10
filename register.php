@@ -375,8 +375,9 @@ setTimeout(function(){
                             </div>
 
                             <div class="form-field">
-                                <label for="id_file">Upload ID Document (JPG, PNG, or PDF)</label>
+
                                 <input type="file" name="id_file" id="id_file" required accept=".jpg,.jpeg,.png,.pdf">
+                                <label for="id_file">Upload ID Document (JPG, PNG, or PDF)</label>
                             </div>
                         </div>
 
@@ -395,7 +396,7 @@ setTimeout(function(){
                 </form>
 
                 <div class="login-link" style="text-align: center; margin-top: 20px; color: #6b7280;">
-                    Already have an account? <a href="login.php" style="text-decoration: none;">Sign in</a>
+                    Already have an account? <a href="login.php" style="text-decoration: none;">Login in</a>
                 </div>
             </div>
         </div>
