@@ -567,7 +567,7 @@ require_once __DIR__ . '/includes/functions.php';
                 </div>
             </div>
             <div class="copyright">
-                &copy; 2026 Nexus Bank. GitHub-RajkumarBM30.
+                <!-- &copy; 2026 Nexus Bank. GitHub-RajkumarBM30. -->
             </div>
         </div>
     </footer>
